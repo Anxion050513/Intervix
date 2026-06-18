@@ -170,3 +170,4 @@ ai-agent-first/
 8. **SSE 流式出题**: 模拟真人面试官的逐字打字效果
 9. **LLM 可观测性**: LangFuse 全链路追踪，16 个 LLM 调用点自动采集（token、延迟、phase 标签）
 10. **Prompt 评测框架**: 10 条 Golden Dataset 基准测试，改 prompt 前后量化对比评分偏离度
+
