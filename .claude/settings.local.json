@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell($env:MYSQL_PWD = \"123456\"; & \"D:\\\\phpstudy_pro\\\\Extensions\\\\MySQL8.0.12\\\\bin\\\\mysql.exe\" -u root ai_interviewer -e \"INSERT INTO users \\(id, email, name, created_at, updated_at\\) VALUES \\('default-user', 'default@test.com', 'Default User', NOW\\(\\), NOW\\(\\)\\) ON DUPLICATE KEY UPDATE name=name; SELECT id, name FROM users;\" 2>&1)",
+      "PowerShell(cd \"E:\\\\ai agent-first\"; Start-Process -NoNewWindow -FilePath python -ArgumentList \"-m\", \"uvicorn\", \"server.main:app\", \"--host\", \"0.0.0.0\", \"--port\", \"8000\" -PassThru; Write-Host \"Backend starting...\"; Start-Sleep -Seconds 6; try { $r = Invoke-WebRequest -Uri \"http://localhost:8000/\" -UseBasicParsing -TimeoutSec 5; Write-Host \"Backend OK: $\\($r.Content\\)\" } catch { Write-Host \"Backend NOT ready: $_\" })",
+      "PowerShell(cd \"E:\\\\ai agent-first\\\\client\"; Start-Process -NoNewWindow -FilePath cmd -ArgumentList \"/c\", \"npm run dev\" -PassThru; Start-Sleep -Seconds 8; Write-Host \"Frontend starting...\"; try { $r = Invoke-WebRequest -Uri \"http://localhost:5173\" -UseBasicParsing -TimeoutSec 5; Write-Host \"Frontend OK: $\\($r.StatusCode\\)\" } catch { Write-Host \"Frontend status: $_\" })",
+      "PowerShell(try { $r = Invoke-WebRequest -Uri \"http://localhost:5173/api/v1/health\" -UseBasicParsing -TimeoutSec 15; Write-Host \"Proxy OK: $\\($r.Content\\)\" } catch { Write-Host \"Proxy error: $_\" })",
+      "PowerShell(Get-Process *)"
+    ]
+  }
+}

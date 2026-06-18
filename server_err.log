@@ -1,0 +1,7 @@
+INFO:     Started server process [36932]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+C:\Users\17916\AppData\Roaming\Python\Python313\site-packages\pydantic\main.py:463: UserWarning: Pydantic serializer warnings:
+  PydanticSerializationUnexpectedValue(Expected `float` - serialized value may not be as expected [input_value=Decimal('25.00'), input_type=Decimal])
+  return self.__pydantic_serializer__.to_python(
