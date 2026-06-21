@@ -1,0 +1,305 @@
+2026-06-21 19:11:45,264 [INFO] sqlalchemy.engine.Engine: SELECT DATABASE()
+2026-06-21 19:11:45,264 [INFO] sqlalchemy.engine.Engine: [raw sql] ()
+2026-06-21 19:11:45,266 [INFO] sqlalchemy.engine.Engine: SELECT @@sql_mode
+2026-06-21 19:11:45,266 [INFO] sqlalchemy.engine.Engine: [raw sql] ()
+2026-06-21 19:11:45,266 [INFO] sqlalchemy.engine.Engine: SELECT @@lower_case_table_names
+2026-06-21 19:11:45,267 [INFO] sqlalchemy.engine.Engine: [raw sql] ()
+2026-06-21 19:11:45,268 [INFO] sqlalchemy.engine.Engine: BEGIN (implicit)
+2026-06-21 19:11:45,268 [INFO] sqlalchemy.engine.Engine: DESCRIBE `ai_interviewer`.`users`
+2026-06-21 19:11:45,268 [INFO] sqlalchemy.engine.Engine: [raw sql] ()
+2026-06-21 19:11:45,285 [INFO] sqlalchemy.engine.Engine: DESCRIBE `ai_interviewer`.`resumes`
+2026-06-21 19:11:45,286 [INFO] sqlalchemy.engine.Engine: [raw sql] ()
+2026-06-21 19:11:45,292 [INFO] sqlalchemy.engine.Engine: DESCRIBE `ai_interviewer`.`interview_sessions`
+2026-06-21 19:11:45,293 [INFO] sqlalchemy.engine.Engine: [raw sql] ()
+2026-06-21 19:11:45,299 [INFO] sqlalchemy.engine.Engine: DESCRIBE `ai_interviewer`.`questions`
+2026-06-21 19:11:45,299 [INFO] sqlalchemy.engine.Engine: [raw sql] ()
+2026-06-21 19:11:45,305 [INFO] sqlalchemy.engine.Engine: DESCRIBE `ai_interviewer`.`answers`
+2026-06-21 19:11:45,305 [INFO] sqlalchemy.engine.Engine: [raw sql] ()
+2026-06-21 19:11:45,311 [INFO] sqlalchemy.engine.Engine: COMMIT
+2026-06-21 19:11:45,313 [INFO] sqlalchemy.engine.Engine: BEGIN (implicit)
+2026-06-21 19:11:45,313 [INFO] sqlalchemy.engine.Engine: ALTER TABLE users ADD COLUMN password_hash VARCHAR(255) NOT NULL DEFAULT ''
+2026-06-21 19:11:45,314 [INFO] sqlalchemy.engine.Engine: [generated in 0.00045s] ()
+2026-06-21 19:11:45,315 [INFO] sqlalchemy.engine.Engine: COMMIT
+2026-06-21 19:11:49,538 [INFO] sqlalchemy.engine.Engine: BEGIN (implicit)
+2026-06-21 19:11:49,565 [INFO] sqlalchemy.engine.Engine: SELECT users.id, users.email, users.name, users.password_hash, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = %s
+2026-06-21 19:11:49,573 [INFO] sqlalchemy.engine.Engine: [generated in 0.00730s] ('d7cdc303-e8e1-43f8-b09e-4aa143b1b309',)
+2026-06-21 19:11:49,578 [INFO] sqlalchemy.engine.Engine: SELECT resumes.id, resumes.user_id, resumes.original_filename, resumes.file_path, resumes.parsed_data, resumes.tech_stack, resumes.years_experience, resumes.status, resumes.error_message, resumes.created_at, resumes.updated_at 
+FROM resumes 
+WHERE resumes.user_id = %s AND resumes.status = %s ORDER BY resumes.created_at DESC 
+ LIMIT %s
+2026-06-21 19:11:49,579 [INFO] sqlalchemy.engine.Engine: [generated in 0.00055s] ('d7cdc303-e8e1-43f8-b09e-4aa143b1b309', 'completed', 1)
+2026-06-21 19:11:49,586 [INFO] sqlalchemy.engine.Engine: COMMIT
+2026-06-21 19:11:50,150 [INFO] sqlalchemy.engine.Engine: BEGIN (implicit)
+2026-06-21 19:11:50,153 [INFO] sqlalchemy.engine.Engine: SELECT interview_sessions.id, interview_sessions.user_id, interview_sessions.resume_id, interview_sessions.status, interview_sessions.skill_modules, interview_sessions.question_count, interview_sessions.current_question_index, interview_sessions.difficulty_level, interview_sessions.settings, interview_sessions.started_at, interview_sessions.ended_at, interview_sessions.created_at, interview_sessions.updated_at 
+FROM interview_sessions 
+WHERE interview_sessions.id = %s
+2026-06-21 19:11:50,154 [INFO] sqlalchemy.engine.Engine: [generated in 0.00082s] ('d783b0f2-fde3-402c-b14b-733696cb44f1',)
+2026-06-21 19:11:50,158 [INFO] sqlalchemy.engine.Engine: COMMIT
+2026-06-21 19:11:50,168 [INFO] sqlalchemy.engine.Engine: BEGIN (implicit)
+2026-06-21 19:11:50,169 [INFO] sqlalchemy.engine.Engine: SELECT interview_sessions.id, interview_sessions.user_id, interview_sessions.resume_id, interview_sessions.status, interview_sessions.skill_modules, interview_sessions.question_count, interview_sessions.current_question_index, interview_sessions.difficulty_level, interview_sessions.settings, interview_sessions.started_at, interview_sessions.ended_at, interview_sessions.created_at, interview_sessions.updated_at 
+FROM interview_sessions 
+WHERE interview_sessions.id = %s
+2026-06-21 19:11:50,170 [INFO] sqlalchemy.engine.Engine: [cached since 0.01662s ago] ('d783b0f2-fde3-402c-b14b-733696cb44f1',)
+2026-06-21 19:11:50,178 [INFO] sqlalchemy.engine.Engine: COMMIT
+2026-06-21 19:11:50,204 [INFO] sqlalchemy.engine.Engine: BEGIN (implicit)
+2026-06-21 19:11:50,205 [INFO] sqlalchemy.engine.Engine: SELECT users.id, users.email, users.name, users.password_hash, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = %s
+2026-06-21 19:11:50,205 [INFO] sqlalchemy.engine.Engine: [cached since 0.64s ago] ('d7cdc303-e8e1-43f8-b09e-4aa143b1b309',)
+2026-06-21 19:11:50,207 [INFO] sqlalchemy.engine.Engine: SELECT resumes.id, resumes.user_id, resumes.original_filename, resumes.file_path, resumes.parsed_data, resumes.tech_stack, resumes.years_experience, resumes.status, resumes.error_message, resumes.created_at, resumes.updated_at 
+FROM resumes 
+WHERE resumes.user_id = %s AND resumes.status = %s ORDER BY resumes.created_at DESC 
+ LIMIT %s
+2026-06-21 19:11:50,208 [INFO] sqlalchemy.engine.Engine: [cached since 0.6293s ago] ('d7cdc303-e8e1-43f8-b09e-4aa143b1b309', 'completed', 1)
+2026-06-21 19:11:50,211 [INFO] sqlalchemy.engine.Engine: COMMIT
+2026-06-21 19:11:50,233 [INFO] sqlalchemy.engine.Engine: BEGIN (implicit)
+2026-06-21 19:11:50,233 [INFO] sqlalchemy.engine.Engine: SELECT users.id, users.email, users.name, users.password_hash, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = %s
+2026-06-21 19:11:50,234 [INFO] sqlalchemy.engine.Engine: [cached since 0.6684s ago] ('d7cdc303-e8e1-43f8-b09e-4aa143b1b309',)
+2026-06-21 19:11:50,236 [INFO] sqlalchemy.engine.Engine: SELECT resumes.id, resumes.user_id, resumes.original_filename, resumes.file_path, resumes.parsed_data, resumes.tech_stack, resumes.years_experience, resumes.status, resumes.error_message, resumes.created_at, resumes.updated_at 
+FROM resumes 
+WHERE resumes.user_id = %s AND resumes.status = %s ORDER BY resumes.created_at DESC 
+ LIMIT %s
+2026-06-21 19:11:50,237 [INFO] sqlalchemy.engine.Engine: [cached since 0.6585s ago] ('d7cdc303-e8e1-43f8-b09e-4aa143b1b309', 'completed', 1)
+2026-06-21 19:11:50,239 [INFO] sqlalchemy.engine.Engine: COMMIT
+2026-06-21 19:11:50,542 [INFO] sqlalchemy.engine.Engine: BEGIN (implicit)
+2026-06-21 19:11:50,543 [INFO] sqlalchemy.engine.Engine: SELECT users.id, users.email, users.name, users.password_hash, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = %s
+2026-06-21 19:11:50,544 [INFO] sqlalchemy.engine.Engine: [cached since 0.9781s ago] ('d7cdc303-e8e1-43f8-b09e-4aa143b1b309',)
+2026-06-21 19:11:50,546 [INFO] sqlalchemy.engine.Engine: SELECT resumes.id, resumes.user_id, resumes.original_filename, resumes.file_path, resumes.parsed_data, resumes.tech_stack, resumes.years_experience, resumes.status, resumes.error_message, resumes.created_at, resumes.updated_at 
+FROM resumes 
+WHERE resumes.user_id = %s AND resumes.status = %s ORDER BY resumes.created_at DESC 
+ LIMIT %s
+2026-06-21 19:11:50,546 [INFO] sqlalchemy.engine.Engine: [cached since 0.968s ago] ('d7cdc303-e8e1-43f8-b09e-4aa143b1b309', 'completed', 1)
+2026-06-21 19:11:50,549 [INFO] sqlalchemy.engine.Engine: COMMIT
+2026-06-21 19:11:50,856 [INFO] sqlalchemy.engine.Engine: BEGIN (implicit)
+2026-06-21 19:11:50,858 [INFO] sqlalchemy.engine.Engine: SELECT resumes.id, resumes.user_id, resumes.original_filename, resumes.file_path, resumes.parsed_data, resumes.tech_stack, resumes.years_experience, resumes.status, resumes.error_message, resumes.created_at, resumes.updated_at 
+FROM resumes 
+WHERE resumes.id = %s
+2026-06-21 19:11:50,859 [INFO] sqlalchemy.engine.Engine: [generated in 0.00085s] ('8a6499b6-3685-44b0-94fa-2f01442d7c7e',)
+2026-06-21 19:11:50,861 [INFO] sqlalchemy.engine.Engine: COMMIT
+2026-06-21 19:11:53,114 [INFO] sqlalchemy.engine.Engine: BEGIN (implicit)
+2026-06-21 19:11:53,115 [INFO] sqlalchemy.engine.Engine: SELECT resumes.id, resumes.user_id, resumes.original_filename, resumes.file_path, resumes.parsed_data, resumes.tech_stack, resumes.years_experience, resumes.status, resumes.error_message, resumes.created_at, resumes.updated_at 
+FROM resumes 
+WHERE resumes.id = %s
+2026-06-21 19:11:53,116 [INFO] sqlalchemy.engine.Engine: [cached since 2.258s ago] ('8a6499b6-3685-44b0-94fa-2f01442d7c7e',)
+2026-06-21 19:11:53,121 [INFO] sqlalchemy.engine.Engine: INSERT INTO interview_sessions (id, user_id, resume_id, status, skill_modules, question_count, current_question_index, difficulty_level, settings, started_at, ended_at, created_at, updated_at) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, now(), now())
+2026-06-21 19:11:53,122 [INFO] sqlalchemy.engine.Engine: [generated in 0.00082s] ('927588db-4937-4226-b3fc-a50f9d58d38f', 'd7cdc303-e8e1-43f8-b09e-4aa143b1b309', '8a6499b6-3685-44b0-94fa-2f01442d7c7e', 'active', '["warmup", "technical_qa", "behavioral", "system_design", "coding_challenge"]', 0, 0, 'medium', '{"question_count": 6}', datetime.datetime(2026, 6, 21, 11, 11, 53, 118560), None)
+2026-06-21 19:11:53,124 [INFO] sqlalchemy.engine.Engine: COMMIT
+2026-06-21 19:11:53,464 [INFO] sqlalchemy.engine.Engine: BEGIN (implicit)
+2026-06-21 19:11:53,465 [INFO] sqlalchemy.engine.Engine: SELECT interview_sessions.id, interview_sessions.user_id, interview_sessions.resume_id, interview_sessions.status, interview_sessions.skill_modules, interview_sessions.question_count, interview_sessions.current_question_index, interview_sessions.difficulty_level, interview_sessions.settings, interview_sessions.started_at, interview_sessions.ended_at, interview_sessions.created_at, interview_sessions.updated_at 
+FROM interview_sessions 
+WHERE interview_sessions.id = %s
+2026-06-21 19:11:53,466 [INFO] sqlalchemy.engine.Engine: [cached since 3.313s ago] ('927588db-4937-4226-b3fc-a50f9d58d38f',)
+2026-06-21 19:11:53,468 [INFO] sqlalchemy.engine.Engine: COMMIT
+2026-06-21 19:11:53,480 [INFO] sqlalchemy.engine.Engine: BEGIN (implicit)
+2026-06-21 19:11:53,481 [INFO] sqlalchemy.engine.Engine: SELECT interview_sessions.id, interview_sessions.user_id, interview_sessions.resume_id, interview_sessions.status, interview_sessions.skill_modules, interview_sessions.question_count, interview_sessions.current_question_index, interview_sessions.difficulty_level, interview_sessions.settings, interview_sessions.started_at, interview_sessions.ended_at, interview_sessions.created_at, interview_sessions.updated_at 
+FROM interview_sessions 
+WHERE interview_sessions.id = %s
+2026-06-21 19:11:53,481 [INFO] sqlalchemy.engine.Engine: [cached since 3.328s ago] ('927588db-4937-4226-b3fc-a50f9d58d38f',)
+2026-06-21 19:11:56,770 [INFO] sqlalchemy.engine.Engine: INSERT INTO questions (id, session_id, skill_module, question_text, question_type, expected_topics, reference_answer, difficulty, order_index, extra_data, created_at, updated_at) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, now(), now())
+2026-06-21 19:11:56,771 [INFO] sqlalchemy.engine.Engine: [generated in 0.00101s] ('a9a14fa5-c176-4660-a528-333373a3b3eb', '927588db-4937-4226-b3fc-a50f9d58d38f', 'warmup', '请用1-2分钟简短介绍一下你自己，包括你的技术背景和为什么对AI应用开发感兴趣。', 'warmup', '["\\u81ea\\u6211\\u4ecb\\u7ecd", "\\u804c\\u4e1a\\u89c4\\u5212"]', None, 'medium', 0, '{"skill": "warmup", "index": 1}')
+2026-06-21 19:11:57,491 [INFO] sqlalchemy.engine.Engine: COMMIT
+2026-06-21 19:12:10,881 [INFO] sqlalchemy.engine.Engine: BEGIN (implicit)
+2026-06-21 19:12:10,882 [INFO] sqlalchemy.engine.Engine: SELECT interview_sessions.id, interview_sessions.user_id, interview_sessions.resume_id, interview_sessions.status, interview_sessions.skill_modules, interview_sessions.question_count, interview_sessions.current_question_index, interview_sessions.difficulty_level, interview_sessions.settings, interview_sessions.started_at, interview_sessions.ended_at, interview_sessions.created_at, interview_sessions.updated_at 
+FROM interview_sessions 
+WHERE interview_sessions.id = %s
+2026-06-21 19:12:10,882 [INFO] sqlalchemy.engine.Engine: [cached since 20.73s ago] ('927588db-4937-4226-b3fc-a50f9d58d38f',)
+2026-06-21 19:12:10,886 [WARNING] server.ai.guardrails.input_guard: LLM content moderation failed: '\n  "is_safe"'
+2026-06-21 19:12:12,493 [INFO] sqlalchemy.engine.Engine: INSERT INTO answers (id, question_id, user_answer, score, score_breakdown, feedback, is_evaluated, evaluated_at, duration_seconds, created_at, updated_at) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, now(), now())
+2026-06-21 19:12:12,494 [INFO] sqlalchemy.engine.Engine: [generated in 0.00064s] ('f737183c-5815-4080-a5c7-dae5e0b11def', 'a9a14fa5-c176-4660-a528-333373a3b3eb', '你好！我是杨浩杰，目前是广东东软学院软件工程专业的一名本科生，明年毕业。 从大二开始，我的兴趣就逐渐聚焦到了 AI 应用开发这个方向，尤其是 LLM 落地这一块。当时觉得大模型能力很强，但在实际业务中怎么用好它、怎么让它稳定可靠地工作，其实有很多工程上的挑战——比如上下文窗口限制、检索准确性、成本控制、可观测性等等。这些“最后一公里”的问题让我觉得特别有意思，所以一直在深入学习和实践。 在技术层面，我主要围绕 Python + FastAPI + LangChain 这套技术栈来构建应用 如果有机会加入团队，我特别期待能在一个实战环境中继续打磨这些能力，同时也能为团队带来实实在在的产出。', None, '{"technical_accuracy": 80, "depth_breadth": 75, "clarity": 85, "practical_experience": 80}', '热身环节，感谢你的回答！', 1, None, None)
+2026-06-21 19:12:12,495 [INFO] sqlalchemy.engine.Engine: SELECT interview_sessions.id, interview_sessions.user_id, interview_sessions.resume_id, interview_sessions.status, interview_sessions.skill_modules, interview_sessions.question_count, interview_sessions.current_question_index, interview_sessions.difficulty_level, interview_sessions.settings, interview_sessions.started_at, interview_sessions.ended_at, interview_sessions.created_at, interview_sessions.updated_at 
+FROM interview_sessions 
+WHERE interview_sessions.id = %s
+2026-06-21 19:12:12,496 [INFO] sqlalchemy.engine.Engine: [cached since 22.34s ago] ('927588db-4937-4226-b3fc-a50f9d58d38f',)
+2026-06-21 19:12:12,499 [INFO] sqlalchemy.engine.Engine: COMMIT
+2026-06-21 19:12:13,820 [INFO] sqlalchemy.engine.Engine: BEGIN (implicit)
+2026-06-21 19:12:13,821 [INFO] sqlalchemy.engine.Engine: SELECT interview_sessions.id, interview_sessions.user_id, interview_sessions.resume_id, interview_sessions.status, interview_sessions.skill_modules, interview_sessions.question_count, interview_sessions.current_question_index, interview_sessions.difficulty_level, interview_sessions.settings, interview_sessions.started_at, interview_sessions.ended_at, interview_sessions.created_at, interview_sessions.updated_at 
+FROM interview_sessions 
+WHERE interview_sessions.id = %s
+2026-06-21 19:12:13,821 [INFO] sqlalchemy.engine.Engine: [cached since 23.67s ago] ('927588db-4937-4226-b3fc-a50f9d58d38f',)
+2026-06-21 19:12:13,823 [WARNING] server.ai.agent.decision_agent: AGENT_OBSERVATION len=743
+---OBSERVATION---
+## 当前面试状态
+
+### 候选人背景
+- 技术栈：Python(advanced/2年), FastAPI(advanced/2年), LangChain(advanced/2年), ChromaDB(advanced/2年), RAG(advanced/2年), Redis(intermediate/2年), MySQL(intermediate/2年), GitHub REST API(intermediate/1年), tree-sitter(intermediate/1年), pluggy(intermediate/1年), LangFuse(intermediate/1年), MCP(beginner/1年), fastmcp(beginner/1年), Embedding(intermediate/2年), Prompt Engineering(advanced/2年), Safety Guardrails(intermediate/1年)
+- 工作年限：未知
+- 当前难度：medium
+
+### 面试进度
+- 当前技能模块：warmup
+- 已选技能模块（按顺序）：warmup → technical_qa → behavioral → system_design → coding_challenge
+- 已提问总数：1 / 6
+- 当前模块已提问数：1
+
+### 最近回答历史（最多最近 5 题）
+  [1] 模块: warmup | 问题: 请用1-2分钟简短介绍一下你自己，包括你的技术背景和为什么对AI应用开发感兴趣。 | 得分: 未评分
+
+### 各模块得分汇总
+  (尚无评分数据)
+
+请根据以上状态决定下一步动作，输出 JSON 决策。
+---END---
+2026-06-21 19:12:18,086 [INFO] sqlalchemy.engine.Engine: INSERT INTO questions (id, session_id, skill_module, question_text, question_type, expected_topics, reference_answer, difficulty, order_index, extra_data, created_at, updated_at) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, now(), now())
+2026-06-21 19:12:18,086 [INFO] sqlalchemy.engine.Engine: [cached since 21.32s ago] ('577bf2b1-9651-4b8d-8fe0-54f1235646fb', '927588db-4937-4226-b3fc-a50f9d58d38f', 'warmup', '你提到了用LangChain和FastAPI构建过智能面试模拟平台，可以具体讲讲这个项目中，你是如何利用RAG或Agent编排来提升回答质量的？遇到的最大挑战是什么？', 'warmup', '["\\u81ea\\u6211\\u4ecb\\u7ecd", "\\u804c\\u4e1a\\u89c4\\u5212"]', None, 'medium', 1, '{"skill": "warmup", "index": 2}')
+2026-06-21 19:12:19,576 [INFO] sqlalchemy.engine.Engine: COMMIT
+2026-06-21 19:13:03,167 [INFO] sqlalchemy.engine.Engine: BEGIN (implicit)
+2026-06-21 19:13:03,168 [INFO] sqlalchemy.engine.Engine: SELECT interview_sessions.id, interview_sessions.user_id, interview_sessions.resume_id, interview_sessions.status, interview_sessions.skill_modules, interview_sessions.question_count, interview_sessions.current_question_index, interview_sessions.difficulty_level, interview_sessions.settings, interview_sessions.started_at, interview_sessions.ended_at, interview_sessions.created_at, interview_sessions.updated_at 
+FROM interview_sessions 
+WHERE interview_sessions.id = %s
+2026-06-21 19:13:03,168 [INFO] sqlalchemy.engine.Engine: [cached since 73.02s ago] ('927588db-4937-4226-b3fc-a50f9d58d38f',)
+2026-06-21 19:13:03,171 [WARNING] server.ai.guardrails.input_guard: LLM content moderation failed: '\n  "is_safe"'
+2026-06-21 19:13:05,006 [INFO] sqlalchemy.engine.Engine: INSERT INTO answers (id, question_id, user_answer, score, score_breakdown, feedback, is_evaluated, evaluated_at, duration_seconds, created_at, updated_at) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, now(), now())
+2026-06-21 19:13:05,006 [INFO] sqlalchemy.engine.Engine: [cached since 52.51s ago] ('c69d7252-34f6-417d-b519-708056223c69', '577bf2b1-9651-4b8d-8fe0-54f1235646fb', '针对检索漂移，我设计了“简历锚点约束”前置过滤机制（强制简历标签作为ChromaDB预过滤条件），配合Dense（70%）与BM25（30%）混合检索及RRF融合，使出题相关度从72%提升至92%。Agent编排上，我用有限状态机包裹LangChain的ReAct循环，结合Redis维护追问深度计 ... (53 characters truncated) ... 0条Golden Dataset和LangFuse的量化反馈迭代3轮，将Faithfulness评分从0.73提升至0.91，同时引入“模板改写+LLM润色”环节（增加300ms延迟）换取“真人感”评分从3.2/5升至4.5/5。最终这套约束机制让系统既保持了动态追问的灵活性，又在边界内稳定运行。', None, '{"technical_accuracy": 80, "depth_breadth": 75, "clarity": 85, "practical_experience": 80}', '热身环节，感谢你的回答！', 1, None, None)
+2026-06-21 19:13:05,008 [INFO] sqlalchemy.engine.Engine: SELECT interview_sessions.id, interview_sessions.user_id, interview_sessions.resume_id, interview_sessions.status, interview_sessions.skill_modules, interview_sessions.question_count, interview_sessions.current_question_index, interview_sessions.difficulty_level, interview_sessions.settings, interview_sessions.started_at, interview_sessions.ended_at, interview_sessions.created_at, interview_sessions.updated_at 
+FROM interview_sessions 
+WHERE interview_sessions.id = %s
+2026-06-21 19:13:05,009 [INFO] sqlalchemy.engine.Engine: [cached since 74.86s ago] ('927588db-4937-4226-b3fc-a50f9d58d38f',)
+2026-06-21 19:13:05,010 [INFO] sqlalchemy.engine.Engine: COMMIT
+2026-06-21 19:13:06,326 [INFO] sqlalchemy.engine.Engine: BEGIN (implicit)
+2026-06-21 19:13:06,326 [INFO] sqlalchemy.engine.Engine: SELECT interview_sessions.id, interview_sessions.user_id, interview_sessions.resume_id, interview_sessions.status, interview_sessions.skill_modules, interview_sessions.question_count, interview_sessions.current_question_index, interview_sessions.difficulty_level, interview_sessions.settings, interview_sessions.started_at, interview_sessions.ended_at, interview_sessions.created_at, interview_sessions.updated_at 
+FROM interview_sessions 
+WHERE interview_sessions.id = %s
+2026-06-21 19:13:06,326 [INFO] sqlalchemy.engine.Engine: [cached since 76.17s ago] ('927588db-4937-4226-b3fc-a50f9d58d38f',)
+2026-06-21 19:13:06,328 [WARNING] server.ai.agent.decision_agent: AGENT_OBSERVATION len=860
+---OBSERVATION---
+## 当前面试状态
+
+### 候选人背景
+- 技术栈：Python(advanced/2年), FastAPI(advanced/2年), LangChain(advanced/2年), ChromaDB(advanced/2年), RAG(advanced/2年), Redis(intermediate/2年), MySQL(intermediate/2年), GitHub REST API(intermediate/1年), tree-sitter(intermediate/1年), pluggy(intermediate/1年), LangFuse(intermediate/1年), MCP(beginner/1年), fastmcp(beginner/1年), Embedding(intermediate/2年), Prompt Engineering(advanced/2年), Safety Guardrails(intermediate/1年)
+- 工作年限：未知
+- 当前难度：medium
+
+### 面试进度
+- 当前技能模块：warmup
+- 已选技能模块（按顺序）：warmup → technical_qa → behavioral → system_design → coding_challenge
+- 已提问总数：2 / 6
+- 当前模块已提问数：2
+
+### 最近回答历史（最多最近 5 题）
+  [1] 模块: warmup | 问题: 请用1-2分钟简短介绍一下你自己，包括你的技术背景和为什么对AI应用开发感兴趣。 | 得分: 未评分
+  [2] 模块: warmup | 问题: 你提到了用LangChain和FastAPI构建过智能面试模拟平台，可以具体讲讲这个项目中，你是如何利用RAG或Agent编排来提升回答质量的？遇到的最大挑战是什么？ | 得分: 未评分
+
+### 各模块得分汇总
+  (尚无评分数据)
+
+请根据以上状态决定下一步动作，输出 JSON 决策。
+---END---
+2026-06-21 19:13:08,309 [WARNING] server.ai.skills.technical_qa: FORMAT_HISTORY_DEBUG items=2 keys_per_item=[['question', 'answer', 'score', 'skill'], ['question', 'answer', 'score', 'skill']]
+2026-06-21 19:13:08,309 [WARNING] server.ai.skills.technical_qa: FORMAT_HISTORY_DEBUG item=1 q_len=40 a_len=297 a_preview=你好！我是杨浩杰，目前是广东东软学院软件工程专业的一名本科生，明年毕业。 从大二开始，我的兴趣就逐渐聚焦到了 AI 应用开发这个方向，尤其是 LLM 落地这一块
+2026-06-21 19:13:08,309 [WARNING] server.ai.skills.technical_qa: FORMAT_HISTORY_DEBUG item=2 q_len=83 a_len=351 a_preview=针对检索漂移，我设计了“简历锚点约束”前置过滤机制（强制简历标签作为ChromaDB预过滤条件），配合Dense（70%）与BM25（30%）混合检索及RRF融
+2026-06-21 19:13:10,594 [WARNING] server.ai.skills.technical_qa: TECHNICAL_QA_QUESTION finish=stop completion_tk=74 len=125 content=基于你的项目经验，你在RAG中使用了Dense+BM25混合检索与RRF融合。请具体说明，你是如何选择Dense和BM25的权重比例（70%/30%）的？这个比例在不同场景下是否需要动态调整？你有考虑过或尝试过其他融合策略（如CC、互惠排名变体）吗？
+2026-06-21 19:13:12,873 [WARNING] server.ai.skills.technical_qa: TECHNICAL_QA_REFERENCE finish=stop completion_tk=116 len=191 content=1. 通过离线评估（如NDCG、MRR）在验证集上网格搜索确定70/30比例。\n2. 根据查询类型动态调整：事实性查询提高BM25权重，语义查询提高Dense权重。\n3. 基于业务反馈或A/B测试结果，定期微调权重比例。\n4. 尝试过CC（Combination of Criteria）融合，但RRF在鲁棒性上更优。\n5. 探索过互惠排名变体（如加权RRF），但未显著提升召回率。
+2026-06-21 19:13:12,874 [INFO] sqlalchemy.engine.Engine: INSERT INTO questions (id, session_id, skill_module, question_text, question_type, expected_topics, reference_answer, difficulty, order_index, extra_data, created_at, updated_at) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, now(), now())
+2026-06-21 19:13:12,874 [INFO] sqlalchemy.engine.Engine: [cached since 76.1s ago] ('5915c7e5-b151-479f-9ad3-348fe33380b5', '927588db-4937-4226-b3fc-a50f9d58d38f', 'technical_qa', '基于你的项目经验，你在RAG中使用了Dense+BM25混合检索与RRF融合。请具体说明，你是如何选择Dense和BM25的权重比例（70%/30%）的？这个比例在不同场景下是否需要动态调整？你有考虑过或尝试过其他融合策略（如CC、互惠排名变体）吗？', 'technical', '["Python", "FastAPI", "LangChain", "ChromaDB", "RAG"]', '1. 通过离线评估（如NDCG、MRR）在验证集上网格搜索确定70/30比例。\n2. 根据查询类型动态调整：事实性查询提高BM25权重，语义查询提高Dense权重。\n3. 基于业务反馈或A/B测试结果，定期微调权重比例。\n4. 尝试过CC（Combination of Criteria）融合，但RRF在鲁棒性上更优。\n5. 探索过互惠排名变体（如加权RRF），但未显著提升召回率。', 'medium', 2, '{"skill": "technical_qa", "index": 1, "difficulty": "medium"}')
+2026-06-21 19:13:12,877 [INFO] sqlalchemy.engine.Engine: UPDATE interview_sessions SET question_count=%s, updated_at=now() WHERE interview_sessions.id = %s
+2026-06-21 19:13:12,877 [INFO] sqlalchemy.engine.Engine: [generated in 0.00028s] (1, '927588db-4937-4226-b3fc-a50f9d58d38f')
+2026-06-21 19:13:14,990 [INFO] sqlalchemy.engine.Engine: COMMIT
+2026-06-21 19:13:39,537 [INFO] sqlalchemy.engine.Engine: BEGIN (implicit)
+2026-06-21 19:13:39,538 [INFO] sqlalchemy.engine.Engine: SELECT interview_sessions.id, interview_sessions.user_id, interview_sessions.resume_id, interview_sessions.status, interview_sessions.skill_modules, interview_sessions.question_count, interview_sessions.current_question_index, interview_sessions.difficulty_level, interview_sessions.settings, interview_sessions.started_at, interview_sessions.ended_at, interview_sessions.created_at, interview_sessions.updated_at 
+FROM interview_sessions 
+WHERE interview_sessions.id = %s
+2026-06-21 19:13:39,539 [INFO] sqlalchemy.engine.Engine: [cached since 109.4s ago] ('927588db-4937-4226-b3fc-a50f9d58d38f',)
+2026-06-21 19:13:39,542 [WARNING] server.ai.guardrails.input_guard: LLM content moderation failed: '\n  "is_safe"'
+2026-06-21 19:13:42,391 [INFO] sqlalchemy.engine.Engine: INSERT INTO answers (id, question_id, user_answer, score, score_breakdown, feedback, is_evaluated, evaluated_at, duration_seconds, created_at, updated_at) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, now(), now())
+2026-06-21 19:13:42,392 [INFO] sqlalchemy.engine.Engine: [cached since 89.9s ago] ('afa5f14c-3ee1-4f0f-91be-854f67afd9f3', '5915c7e5-b151-479f-9ad3-348fe33380b5', '在Intervix项目中，70%/30%的配比是通过在Golden Dataset上网格搜索确定的——我对比了Dense:BM25在6:4、7:3、8:2三种比例下的NDCG@3，发现7:3时Top-3准确率最高（92%），因为面试场景既依赖精确术语匹配（BM25）又需要语义泛化（Dense），而7:3恰好平衡了这两者。', 85, '{"technical_accuracy": 90, "depth_breadth": 80, "clarity": 85, "practical_experience": 85}', '回答具体且结合了项目场景，通过网格搜索确定权重比例并给出NDCG@3指标，体现了实践能力。但未提及动态调整策略（如查询类型区分）、其他融合策略（如CC或加权RRF）的尝试，以及业务反馈或A/B测试的持续优化，深度和广度略有不足。建议补充：1）说明是否根据查询意图动态调整权重；2）对比过哪些融合方法及为何选择RRF；3）如何通过线上反馈迭代权重。', 1, None, None)
+2026-06-21 19:13:42,393 [INFO] sqlalchemy.engine.Engine: SELECT interview_sessions.id, interview_sessions.user_id, interview_sessions.resume_id, interview_sessions.status, interview_sessions.skill_modules, interview_sessions.question_count, interview_sessions.current_question_index, interview_sessions.difficulty_level, interview_sessions.settings, interview_sessions.started_at, interview_sessions.ended_at, interview_sessions.created_at, interview_sessions.updated_at 
+FROM interview_sessions 
+WHERE interview_sessions.id = %s
+2026-06-21 19:13:42,393 [INFO] sqlalchemy.engine.Engine: [cached since 112.2s ago] ('927588db-4937-4226-b3fc-a50f9d58d38f',)
+2026-06-21 19:13:42,394 [INFO] sqlalchemy.engine.Engine: COMMIT
+2026-06-21 19:13:43,713 [INFO] sqlalchemy.engine.Engine: BEGIN (implicit)
+2026-06-21 19:13:43,713 [INFO] sqlalchemy.engine.Engine: SELECT interview_sessions.id, interview_sessions.user_id, interview_sessions.resume_id, interview_sessions.status, interview_sessions.skill_modules, interview_sessions.question_count, interview_sessions.current_question_index, interview_sessions.difficulty_level, interview_sessions.settings, interview_sessions.started_at, interview_sessions.ended_at, interview_sessions.created_at, interview_sessions.updated_at 
+FROM interview_sessions 
+WHERE interview_sessions.id = %s
+2026-06-21 19:13:43,713 [INFO] sqlalchemy.engine.Engine: [cached since 113.6s ago] ('927588db-4937-4226-b3fc-a50f9d58d38f',)
+2026-06-21 19:13:43,715 [WARNING] server.ai.agent.decision_agent: AGENT_OBSERVATION len=1045
+---OBSERVATION---
+## 当前面试状态
+
+### 候选人背景
+- 技术栈：Python(advanced/2年), FastAPI(advanced/2年), LangChain(advanced/2年), ChromaDB(advanced/2年), RAG(advanced/2年), Redis(intermediate/2年), MySQL(intermediate/2年), GitHub REST API(intermediate/1年), tree-sitter(intermediate/1年), pluggy(intermediate/1年), LangFuse(intermediate/1年), MCP(beginner/1年), fastmcp(beginner/1年), Embedding(intermediate/2年), Prompt Engineering(advanced/2年), Safety Guardrails(intermediate/1年)
+- 工作年限：未知
+- 当前难度：medium
+
+### 面试进度
+- 当前技能模块：technical_qa
+- 已选技能模块（按顺序）：warmup → technical_qa → behavioral → system_design → coding_challenge
+- 已提问总数：3 / 6
+- 当前模块已提问数：1
+
+### 最近回答历史（最多最近 5 题）
+  [1] 模块: warmup | 问题: 请用1-2分钟简短介绍一下你自己，包括你的技术背景和为什么对AI应用开发感兴趣。 | 得分: 未评分
+  [2] 模块: warmup | 问题: 你提到了用LangChain和FastAPI构建过智能面试模拟平台，可以具体讲讲这个项目中，你是如何利用RAG或Agent编排来提升回答质量的？遇到的最大挑战是什么？ | 得分: 未评分
+  [3] 模块: technical_qa | 问题: 基于你的项目经验，你在RAG中使用了Dense+BM25混合检索与RRF融合。请具体说明，你是如何选择Dense和BM25的权重比例（70%/30%）的？这个比例在不同场景下是否需要动态调整？你有考虑过或尝试过其他融合策略（如CC、互惠排名变体）吗？ | 得分: 85
+
+### 各模块得分汇总
+  technical_qa: 平均 85.0 分
+
+请根据以上状态决定下一步动作，输出 JSON 决策。
+---END---
+2026-06-21 19:13:46,190 [WARNING] server.ai.skills.technical_qa: FORMAT_HISTORY_DEBUG items=3 keys_per_item=[['question', 'answer', 'score', 'skill'], ['question', 'answer', 'score', 'skill'], ['question', 'answer', 'score', 'skill']]
+2026-06-21 19:13:46,190 [WARNING] server.ai.skills.technical_qa: FORMAT_HISTORY_DEBUG item=1 q_len=40 a_len=297 a_preview=你好！我是杨浩杰，目前是广东东软学院软件工程专业的一名本科生，明年毕业。 从大二开始，我的兴趣就逐渐聚焦到了 AI 应用开发这个方向，尤其是 LLM 落地这一块
+2026-06-21 19:13:46,190 [WARNING] server.ai.skills.technical_qa: FORMAT_HISTORY_DEBUG item=2 q_len=83 a_len=351 a_preview=针对检索漂移，我设计了“简历锚点约束”前置过滤机制（强制简历标签作为ChromaDB预过滤条件），配合Dense（70%）与BM25（30%）混合检索及RRF融
+2026-06-21 19:13:46,191 [WARNING] server.ai.skills.technical_qa: FORMAT_HISTORY_DEBUG item=3 q_len=125 a_len=161 a_preview=在Intervix项目中，70%/30%的配比是通过在Golden Dataset上网格搜索确定的——我对比了Dense:BM25在6:4、7:3、8:2三种比
+2026-06-21 19:13:48,468 [WARNING] server.ai.skills.technical_qa: TECHNICAL_QA_QUESTION finish=stop completion_tk=69 len=129 content=你在项目中用到了树状解析器（tree-sitter）来解析代码。请结合具体场景说明，你是如何利用tree-sitter提取代码结构（如函数、类、依赖）的？在处理不同编程语言时，tree-sitter的语法定义和解析结果有何差异？你遇到过解析失败或性能瓶颈吗？
+2026-06-21 19:13:50,734 [WARNING] server.ai.skills.technical_qa: TECHNICAL_QA_REFERENCE finish=stop completion_tk=77 len=132 content=1. 描述具体场景，如代码审查或依赖分析工具。\n2. 说明利用tree-sitter查询语法树提取函数、类节点。\n3. 提及通过AST遍历或模式匹配提取依赖关系。\n4. 指出不同语言语法定义差异导致解析树结构不同。\n5. 举例解析失败场景，如不完整代码或语法错误。
+2026-06-21 19:13:50,734 [INFO] sqlalchemy.engine.Engine: INSERT INTO questions (id, session_id, skill_module, question_text, question_type, expected_topics, reference_answer, difficulty, order_index, extra_data, created_at, updated_at) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, now(), now())
+2026-06-21 19:13:50,735 [INFO] sqlalchemy.engine.Engine: [cached since 114s ago] ('08445b4c-77cd-4bed-8844-0e41cc256951', '927588db-4937-4226-b3fc-a50f9d58d38f', 'technical_qa', '你在项目中用到了树状解析器（tree-sitter）来解析代码。请结合具体场景说明，你是如何利用tree-sitter提取代码结构（如函数、类、依赖）的？在处理不同编程语言时，tree-sitter的语法定义和解析结果有何差异？你遇到过解析失败或性能瓶颈吗？', 'technical', '["Python", "FastAPI", "LangChain", "ChromaDB", "Redis"]', '1. 描述具体场景，如代码审查或依赖分析工具。\n2. 说明利用tree-sitter查询语法树提取函数、类节点。\n3. 提及通过AST遍历或模式匹配提取依赖关系。\n4. 指出不同语言语法定义差异导致解析树结构不同。\n5. 举例解析失败场景，如不完整代码或语法错误。', 'medium', 3, '{"skill": "technical_qa", "index": 2, "difficulty": "medium"}')
+2026-06-21 19:13:50,736 [INFO] sqlalchemy.engine.Engine: UPDATE interview_sessions SET question_count=%s, current_question_index=%s, updated_at=now() WHERE interview_sessions.id = %s
+2026-06-21 19:13:50,736 [INFO] sqlalchemy.engine.Engine: [generated in 0.00038s] (2, 1, '927588db-4937-4226-b3fc-a50f9d58d38f')
+2026-06-21 19:13:53,002 [INFO] sqlalchemy.engine.Engine: COMMIT
+2026-06-21 19:14:28,327 [INFO] sqlalchemy.engine.Engine: BEGIN (implicit)
+2026-06-21 19:14:28,328 [INFO] sqlalchemy.engine.Engine: SELECT interview_sessions.id, interview_sessions.user_id, interview_sessions.resume_id, interview_sessions.status, interview_sessions.skill_modules, interview_sessions.question_count, interview_sessions.current_question_index, interview_sessions.difficulty_level, interview_sessions.settings, interview_sessions.started_at, interview_sessions.ended_at, interview_sessions.created_at, interview_sessions.updated_at 
+FROM interview_sessions 
+WHERE interview_sessions.id = %s
+2026-06-21 19:14:28,328 [INFO] sqlalchemy.engine.Engine: [cached since 158.2s ago] ('927588db-4937-4226-b3fc-a50f9d58d38f',)
+2026-06-21 19:14:28,331 [WARNING] server.ai.guardrails.input_guard: LLM content moderation failed: '\n  "is_safe"'
+2026-06-21 19:14:31,502 [INFO] sqlalchemy.engine.Engine: INSERT INTO answers (id, question_id, user_answer, score, score_breakdown, feedback, is_evaluated, evaluated_at, duration_seconds, created_at, updated_at) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, now(), now())
+2026-06-21 19:14:31,502 [INFO] sqlalchemy.engine.Engine: [cached since 139s ago] ('c5b2a85e-616e-437b-8f90-6cb44f2e3ac7', '08445b4c-77cd-4bed-8844-0e41cc256951', '在 `CodeSentinel` 项目中，我利用 `tree-sitter` 将代码解析为**抽象语法树 (AST)**，并通过编写 `tree-sitter` 的查询文件（`.scm`）来精准提取函数、类定义及函数调用。不同编程语言的语法节点定义差异巨大，例如 Python 的函数定义节点是 ` ... (135 characters truncated) ... RROR` 节点的 AST，保证后续分析可以继续。性能方面，全量解析大文件确实可能成为瓶颈，我在项目中主要通过两种方式优化：一是利用 `tree-sitter` 的**增量解析**能力，在代码变更时只重新解析修改部分，速度可提升 5-10 倍；二是结合**缓存策略**，避免对未修改的文件重复解析。', 85, '{"technical_accuracy": 90, "depth_breadth": 80, "clarity": 85, "practical_experience": 85}', '回答整体准确且结合了具体项目场景，技术点覆盖全面。改进建议：1. 可补充具体查询示例（如.scm文件中的模式匹配写法），以体现更深的技术细节；2. 在解析失败场景中，可提及如何处理ERROR节点（如跳过或标记），以及增量解析的具体实现方式（如基于编辑距离的差异计算）；3. 可扩展讨论不同语言AST结构差异对依赖提取的影响（如Python的import与Rust的use节点路径不同）。', 1, None, None)
+2026-06-21 19:14:31,504 [INFO] sqlalchemy.engine.Engine: SELECT interview_sessions.id, interview_sessions.user_id, interview_sessions.resume_id, interview_sessions.status, interview_sessions.skill_modules, interview_sessions.question_count, interview_sessions.current_question_index, interview_sessions.difficulty_level, interview_sessions.settings, interview_sessions.started_at, interview_sessions.ended_at, interview_sessions.created_at, interview_sessions.updated_at 
+FROM interview_sessions 
+WHERE interview_sessions.id = %s
+2026-06-21 19:14:31,505 [INFO] sqlalchemy.engine.Engine: [cached since 161.4s ago] ('927588db-4937-4226-b3fc-a50f9d58d38f',)
+2026-06-21 19:14:31,507 [INFO] sqlalchemy.engine.Engine: COMMIT
+2026-06-21 19:14:32,834 [INFO] sqlalchemy.engine.Engine: BEGIN (implicit)
+2026-06-21 19:14:32,834 [INFO] sqlalchemy.engine.Engine: SELECT interview_sessions.id, interview_sessions.user_id, interview_sessions.resume_id, interview_sessions.status, interview_sessions.skill_modules, interview_sessions.question_count, interview_sessions.current_question_index, interview_sessions.difficulty_level, interview_sessions.settings, interview_sessions.started_at, interview_sessions.ended_at, interview_sessions.created_at, interview_sessions.updated_at 
+FROM interview_sessions 
+WHERE interview_sessions.id = %s
+2026-06-21 19:14:32,835 [INFO] sqlalchemy.engine.Engine: [cached since 162.7s ago] ('927588db-4937-4226-b3fc-a50f9d58d38f',)
+2026-06-21 19:14:32,836 [WARNING] server.ai.agent.decision_agent: AGENT_OBSERVATION len=1213
+---OBSERVATION---
+## 当前面试状态
+
+### 候选人背景
+- 技术栈：Python(advanced/2年), FastAPI(advanced/2年), LangChain(advanced/2年), ChromaDB(advanced/2年), RAG(advanced/2年), Redis(intermediate/2年), MySQL(intermediate/2年), GitHub REST API(intermediate/1年), tree-sitter(intermediate/1年), pluggy(intermediate/1年), LangFuse(intermediate/1年), MCP(beginner/1年), fastmcp(beginner/1年), Embedding(intermediate/2年), Prompt Engineering(advanced/2年), Safety Guardrails(intermediate/1年)
+- 工作年限：未知
+- 当前难度：medium
+
+### 面试进度
+- 当前技能模块：technical_qa
+- 已选技能模块（按顺序）：warmup → technical_qa → behavioral → system_design → coding_challenge
+- 已提问总数：4 / 6
+- 当前模块已提问数：2
+
+### 最近回答历史（最多最近 5 题）
+  [1] 模块: warmup | 问题: 请用1-2分钟简短介绍一下你自己，包括你的技术背景和为什么对AI应用开发感兴趣。 | 得分: 未评分
+  [2] 模块: warmup | 问题: 你提到了用LangChain和FastAPI构建过智能面试模拟平台，可以具体讲讲这个项目中，你是如何利用RAG或Agent编排来提升回答质量的？遇到的最大挑战是什么？ | 得分: 未评分
+  [3] 模块: technical_qa | 问题: 基于你的项目经验，你在RAG中使用了Dense+BM25混合检索与RRF融合。请具体说明，你是如何选择Dense和BM25的权重比例（70%/30%）的？这个比例在不同场景下是否需要动态调整？你有考虑过或尝试过其他融合策略（如CC、互惠排名变体）吗？ | 得分: 85
+  [4] 模块: technical_qa | 问题: 你在项目中用到了树状解析器（tree-sitter）来解析代码。请结合具体场景说明，你是如何利用tree-sitter提取代码结构（如函数、类、依赖）的？在处理不同编程语言时，tree-sitter的语法定义和解析结果有何差异？你遇到过解析失败或性能瓶颈吗？ | 得分: 85
+
+### 各模块得分汇总
+  technical_qa: 平均 85.0 分
+
+请根据以上状态决定下一步动作，输出 JSON 决策。
+---END---
+2026-06-21 19:14:37,095 [INFO] sqlalchemy.engine.Engine: INSERT INTO questions (id, session_id, skill_module, question_text, question_type, expected_topics, reference_answer, difficulty, order_index, extra_data, created_at, updated_at) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, now(), now())
+2026-06-21 19:14:37,095 [INFO] sqlalchemy.engine.Engine: [cached since 160.3s ago] ('a34a6dfe-d07a-4b83-89eb-fb19dfaa73ff', '927588db-4937-4226-b3fc-a50f9d58d38f', 'behavioral', '请描述一个你负责或深度参与的、使用Python和FastAPI开发并交付的项目。当时项目的背景和你的具体任务是什么？你采取了哪些关键行动来确保项目按计划推进并最终交付？请结合具体的技术决策（如LangChain、ChromaDB或RAG的使用）或遇到的挑战来说明，最终取得了怎样的结果？', 'behavioral', '["\\u9879\\u76ee\\u63a8\\u8fdb\\u4e0e\\u4ea4\\u4ed8"]', None, 'medium', 4, '{"skill": "behavioral", "index": 1}')
+2026-06-21 19:14:37,097 [INFO] sqlalchemy.engine.Engine: UPDATE interview_sessions SET question_count=%s, current_question_index=%s, updated_at=now() WHERE interview_sessions.id = %s
+2026-06-21 19:14:37,097 [INFO] sqlalchemy.engine.Engine: [cached since 46.36s ago] (3, 2, '927588db-4937-4226-b3fc-a50f9d58d38f')
+2026-06-21 19:14:39,572 [INFO] sqlalchemy.engine.Engine: COMMIT

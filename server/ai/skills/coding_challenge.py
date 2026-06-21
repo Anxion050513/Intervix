@@ -18,7 +18,7 @@ class CodingChallengeSkill(BaseSkill):
         self.llm_factory = llm_factory
 
     async def generate_question(self, ctx: SkillContext) -> GeneratedQuestion:
-        llm = self.llm_factory.get_chat_model(temperature=0.4)
+        llm = self.llm_factory.get_chat_model(temperature=0.4, max_tokens=3000)
         prompt = f"""你是一个编程面试官。根据候选人背景出一道编程题。
 
 候选人技术栈：{', '.join([t.get('name', '') for t in ctx.tech_stack[:5]])}
@@ -65,7 +65,7 @@ class CodingChallengeSkill(BaseSkill):
         user_answer: str,
         ctx: SkillContext,
     ) -> dict:
-        llm = self.llm_factory.get_chat_model(temperature=0.2)
+        llm = self.llm_factory.get_chat_model(temperature=0.2, max_tokens=500)
 
         # Try sandbox execution if MCP available
         sandbox_info = ""

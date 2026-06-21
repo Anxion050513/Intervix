@@ -144,10 +144,11 @@ class InterviewAgent:
         # Format recent history
         history_lines = []
         for i, h in enumerate(recent_history[-5:]):
-            score_str = f"{h.get('score', 'N/A')}" if h.get('score') is not None else "未评分"
+            score_str = str(h.get('score', 'N/A')) if h.get('score') is not None else "未评分"
+            q = h.get('question', '')
             history_lines.append(
                 f"  [{i+1}] 模块: {h.get('skill', 'N/A')} | "
-                f"问题: {h.get('question', '')[:80]}... | "
+                f"问题: {q[:3000]}{'...' if len(q) > 3000 else ''} | "
                 f"得分: {score_str}"
             )
         history_text = "\n".join(history_lines) if history_lines else "  (尚无回答记录)"
@@ -158,18 +159,28 @@ class InterviewAgent:
             score_lines.append(f"  {mod}: 平均 {avg_score:.1f} 分")
         scores_text = "\n".join(score_lines) if score_lines else "  (尚无评分数据)"
 
-        return AGENT_OBSERVATION_TEMPLATE.format(
-            tech_stack=self._format_tech_stack(tech_stack),
-            years_experience=years_experience or "未知",
-            difficulty=difficulty,
-            current_skill=current_skill,
-            skill_modules=" → ".join(skill_modules),
+        # Build observation, escaping { } in user-generated text to prevent
+        # str.format() from crashing on code snippets / JSON in answers.
+        safe = lambda s: s.replace('{', '{{').replace('}', '}}') if isinstance(s, str) else s
+        observation = AGENT_OBSERVATION_TEMPLATE.format(
+            tech_stack=safe(self._format_tech_stack(tech_stack)),
+            years_experience=safe(years_experience or "未知"),
+            difficulty=safe(difficulty),
+            current_skill=safe(current_skill),
+            skill_modules=safe(" → ".join(skill_modules)),
             total_asked=total_asked,
             max_questions=max_questions,
             module_count=module_count,
-            recent_history=history_text,
-            module_scores=scores_text,
+            recent_history=safe(history_text),
+            module_scores=safe(scores_text),
         )
+        import logging
+        _log = logging.getLogger(__name__)
+        _log.warning(
+            "AGENT_OBSERVATION len=%d\n---OBSERVATION---\n%s\n---END---",
+            len(observation), observation
+        )
+        return observation
 
     async def decide(
         self,

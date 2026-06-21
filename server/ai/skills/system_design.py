@@ -35,7 +35,7 @@ class SystemDesignSkill(BaseSkill):
         import random
         scenario = random.choice(scenarios)
 
-        llm = self.llm_factory.get_chat_model(temperature=0.7)
+        llm = self.llm_factory.get_chat_model(temperature=0.7, max_tokens=3000)
 
         prompt = f"""你是一位系统设计面试官。
 
@@ -61,7 +61,7 @@ class SystemDesignSkill(BaseSkill):
     async def evaluate_answer(
         self, question: GeneratedQuestion, user_answer: str, ctx: SkillContext
     ) -> dict:
-        llm = self.llm_factory.get_chat_model(temperature=0.2)
+        llm = self.llm_factory.get_chat_model(temperature=0.2, max_tokens=500)
 
         prompt = f"""评估候选人的系统设计回答。
 

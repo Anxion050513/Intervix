@@ -1,9 +1,21 @@
 """FastAPI application entry point."""
+import logging
 import os
+import sys
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+
+# Write logs to file so they're easy to search
+logging.basicConfig(
+    level=logging.WARNING,
+    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+    handlers=[
+        logging.FileHandler("interview_debug.log", encoding="utf-8"),
+        logging.StreamHandler(sys.stderr),
+    ],
+)
 
 from server.config import settings
 from server.database import init_db

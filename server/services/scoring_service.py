@@ -175,7 +175,7 @@ class ScoringService:
         except Exception:
             pass
         try:
-            llm = self.llm_factory.get_chat_model(temperature=0.4)
+            llm = self.llm_factory.get_chat_model(temperature=0.4, max_tokens=1000)
             prompt = f"""根据以下面试表现，给出3-5条改进建议：
 
 技术栈：{', '.join([t.get('name', '') for t in tech_stack])}

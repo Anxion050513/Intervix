@@ -20,7 +20,7 @@ class WarmupSkill(BaseSkill):
     async def generate_question(self, ctx: SkillContext) -> GeneratedQuestion:
         self._asked_count += 1
 
-        llm = self.llm_factory.get_chat_model(temperature=0.8)
+        llm = self.llm_factory.get_chat_model(temperature=0.8, max_tokens=3000)
         techs = ", ".join([t.get("name", "") for t in ctx.tech_stack[:5]])
         years = ctx.years_experience or "未知"
 
@@ -34,13 +34,21 @@ class WarmupSkill(BaseSkill):
 这是第 {self._asked_count} 个热身问题。如果是第1个，请候选人做简短自我介绍。
 如果是第2个，问一个关于职业规划或项目经历的开放式问题。
 
-请用友好、鼓励的语气。直接输出问题，不要加前缀。"""
+要求：
+1. 直接输出问题，不要加"好的""哇""同学"等寒暄或夸赞前缀
+2. 问题控制在150字以内
+3. 用中文，语气温暖但不啰嗦"""
 
         result = await llm.ainvoke(prompt)
-        question_text = result.content.strip()
-
+        text = result.content.strip()
+        if text and not text.endswith(('？', '？', '。', '！', '!', '.', '?')):
+            import logging
+            logging.getLogger(__name__).warning(
+                "WARMUP_QUESTION may be truncated (len=%d, ends_with=%r): %s",
+                len(text), text[-20:], text[:100]
+            )
         return GeneratedQuestion(
-            text=question_text,
+            text=text,
             question_type="warmup",
             expected_topics=["自我介绍", "职业规划"],
             metadata={"skill": "warmup", "index": self._asked_count},
@@ -50,7 +58,7 @@ class WarmupSkill(BaseSkill):
         self, question: GeneratedQuestion, user_answer: str, ctx: SkillContext
     ) -> dict:
         # Warmup: light scoring with standard dimensions for report aggregation
-        llm = self.llm_factory.get_chat_model(temperature=0.2)
+        llm = self.llm_factory.get_chat_model(temperature=0.2, max_tokens=500)
         prompt = f"""快速评估热身环节的回答（仅用于维度分析，不显示分数）。
 
 问题：{question.text}

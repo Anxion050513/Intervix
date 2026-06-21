@@ -18,7 +18,10 @@ class TechnicalQASkill(BaseSkill):
     async def generate_question(self, ctx: SkillContext) -> GeneratedQuestion:
         self._asked_count += 1
 
-        llm = self.llm_factory.get_chat_model(temperature=0.7)
+        import logging as _logging
+        _log = _logging.getLogger(__name__)
+
+        llm = self.llm_factory.get_chat_model(temperature=0.7, max_tokens=4000)
         techs = [
             t.get("name", "") for t in ctx.tech_stack
             if t.get("name", "") not in self._used_topics
@@ -30,7 +33,8 @@ class TechnicalQASkill(BaseSkill):
         difficulty = ctx.difficulty
         history = self._format_history(ctx.session_history[-6:])
 
-        prompt = f"""你是一位资深技术面试官，正在进行技术问答环节。
+        # --- Step 1: Generate question only ---
+        q_prompt = f"""你是一位资深技术面试官，正在进行技术问答环节。
 
 候选人技术栈：{tech_list}
 工作经验：{ctx.years_experience or '未知'} 年
@@ -49,22 +53,40 @@ class TechnicalQASkill(BaseSkill):
 1. 问题基于候选人的技术栈（优先问尚未问过的技术）
 2. 问题要有深度，不能是简单的"什么是XXX"
 3. 如果是 medium/hard，应该让候选人需要结合实际经验回答
-4. 直接输出问题，用中文提问
+4. 只输出问题本身，用中文，控制在150字以内"""
 
-输出格式：
-问题：[问题内容]
-参考要点：[3-5个候选答案应该覆盖的核心要点]"""
+        q_result = await llm.ainvoke(q_prompt)
+        question_text = q_result.content.strip()
+        q_finish = q_result.response_metadata.get("finish_reason", "unknown")
+        q_tokens = q_result.response_metadata.get("token_usage", {})
+        _log.warning(
+            "TECHNICAL_QA_QUESTION finish=%s completion_tk=%s len=%d content=%s",
+            q_finish, q_tokens.get("completion_tokens", "?"),
+            len(question_text), question_text[:150].replace('\n', '\\n')
+        )
 
-        result = await llm.ainvoke(prompt)
-        content = result.content.strip()
+        # --- Step 2: Generate reference points based on the question ---
+        r_llm = self.llm_factory.get_chat_model(temperature=0.3, max_tokens=2000)
+        r_prompt = f"""你是一位资深技术面试官。请为以下面试问题，列出3-5个候选答案应该覆盖的核心要点。
 
-        # Parse question and reference
-        question_text = content
-        reference = ""
-        if "问题：" in content and "参考要点：" in content:
-            parts = content.split("参考要点：", 1)
-            question_text = parts[0].replace("问题：", "").strip()
-            reference = parts[1].strip()
+面试问题：{question_text}
+候选人技术栈：{tech_list}
+难度：{difficulty}
+
+要求：
+1. 每条要点控制在30字以内
+2. 每条单独一行，用序号列出
+3. 只输出要点，不要任何额外说明"""
+
+        r_result = await r_llm.ainvoke(r_prompt)
+        reference = r_result.content.strip()
+        r_finish = r_result.response_metadata.get("finish_reason", "unknown")
+        r_tokens = r_result.response_metadata.get("token_usage", {})
+        _log.warning(
+            "TECHNICAL_QA_REFERENCE finish=%s completion_tk=%s len=%d content=%s",
+            r_finish, r_tokens.get("completion_tokens", "?"),
+            len(reference), reference[:200].replace('\n', '\\n')
+        )
 
         # Track used tech
         for tech in techs:
@@ -87,7 +109,7 @@ class TechnicalQASkill(BaseSkill):
     async def evaluate_answer(
         self, question: GeneratedQuestion, user_answer: str, ctx: SkillContext
     ) -> dict:
-        llm = self.llm_factory.get_chat_model(temperature=0.2)
+        llm = self.llm_factory.get_chat_model(temperature=0.2, max_tokens=500)
 
         prompt = f"""你是一位资深技术面试官，请评估候选人对以下技术问题的回答。
 
@@ -137,14 +159,31 @@ class TechnicalQASkill(BaseSkill):
             }
 
     def _format_history(self, history: list) -> str:
+        import logging
+        _log = logging.getLogger(__name__)
+        _log.warning("FORMAT_HISTORY_DEBUG items=%d keys_per_item=%s",
+                     len(history),
+                     [list(h.keys()) if isinstance(h, dict) else type(h).__name__ for h in history])
         if not history:
             return "（无）"
         lines = []
-        for i, qa in enumerate(history, 1):
-            lines.append(
-                f"{i}. Q: {qa.get('question', '')[:80]}...\n"
-                f"   A: {qa.get('answer', '')[:80]}..."
-            )
+        for i, item in enumerate(history, 1):
+            if item.get("type") == "follow_up_hint":
+                lines.append(
+                    f"{i}. [追问要求] {item.get('context', '')}"
+                )
+            else:
+                q = item.get('question', '')
+                a = item.get('answer', '')
+                _log.warning("FORMAT_HISTORY_DEBUG item=%d q_len=%d a_len=%d a_preview=%s",
+                             i, len(q), len(a), a[:80])
+                if not a:
+                    a = "(答案未记录，可能被安全护栏拦截)"
+                    _log.warning("FORMAT_HISTORY_DEBUG item %d has empty answer, question[:60]=%s", i, q[:60])
+                lines.append(
+                    f"{i}. Q: {q[:1000]}{'...' if len(q) > 1000 else ''}\n"
+                    f"   A: {a[:2500]}{'...' if len(a) > 2500 else ''}"
+                )
         return "\n".join(lines)
 
     async def on_session_start(self, ctx: SkillContext) -> None:

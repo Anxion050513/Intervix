@@ -176,7 +176,9 @@ class InputGuard:
             llm = self.llm_factory.get_chat_model(temperature=0, streaming=False)
             messages = [
                 SystemMessage(content="你是一个内容安全审核员。只输出 JSON，不要其他内容。"),
-                HumanMessage(content=CONTENT_MODERATION_PROMPT.format(user_input=text)),
+                HumanMessage(content=CONTENT_MODERATION_PROMPT.format(
+                    user_input=text.replace('{', '{{').replace('}', '}}')
+                )),
             ]
             response = await llm.ainvoke(messages)
             content = response.content.strip()

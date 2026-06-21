@@ -251,13 +251,14 @@ class InterviewOrchestrator:
             # Stay in same skill, agent provides focus context
             skill = skill_registry.get(current_skill)
             if skill:
-                # Inject follow-up context into the skill context
+                # Store follow-up context in session_data so _generate_with_skill
+                # can inject it AFTER syncing real Q&A history (avoids overwrite).
                 if decision.follow_up_context:
-                    ctx.session_history.append({
+                    session_data["pending_follow_up"] = {
                         "type": "follow_up_hint",
                         "context": decision.follow_up_context,
                         "topics": decision.focus_topics,
-                    })
+                    }
                 return await self._generate_with_skill(
                     session, db_session, session_data, current_skill, state
                 )
@@ -391,6 +392,13 @@ class InterviewOrchestrator:
         if not skill:
             return None, InterviewState.SCORING
 
+        # Sync real Q&A history into skill context (Bug 1 fix)
+        ctx.session_history = list(session_data.get("question_history", []))
+        # Inject pending follow-up context from agent decision (Bug 2 fix)
+        pending_follow_up = session_data.pop("pending_follow_up", None)
+        if pending_follow_up:
+            ctx.session_history.append(pending_follow_up)
+
         # Generate question (traced)
         _set_trace(session_id=session.id, skill_module=skill_name, phase="generate")
         try:
@@ -401,7 +409,8 @@ class InterviewOrchestrator:
         module_counts[skill_name] = module_counts.get(skill_name, 0) + 1
         session_data["module_question_counts"] = module_counts
 
-        # Create Question in DB
+        # Create Question in DB (use running sequence for ordering, not question_count)
+        seq_index = session_data.setdefault("_question_seq", 0)
         question = Question(
             session_id=session.id,
             skill_module=skill_name,
@@ -410,15 +419,17 @@ class InterviewOrchestrator:
             expected_topics=gen_q.expected_topics,
             reference_answer=gen_q.reference_answer,
             difficulty=ctx.difficulty,
-            order_index=session.question_count,
+            order_index=seq_index,
             extra_data=gen_q.metadata,
         )
         db_session.add(question)
         await db_session.flush()
+        session_data["_question_seq"] = seq_index + 1
 
-        # Update session counter
-        session.question_count += 1
-        session.current_question_index = session.question_count - 1
+        # Update session counter (warmup doesn't count toward total)
+        if skill_name != "warmup":
+            session.question_count += 1
+            session.current_question_index = session.question_count - 1
         await db_session.flush()
 
         session_data["current_question"] = question
@@ -485,6 +496,13 @@ class InterviewOrchestrator:
                 feedback=f"您的回答因安全原因未被接受：{guard_result.reason}。请重新回答与面试相关的内容。",
                 is_evaluated=True,
             )
+            # Record blocked answer in history too, so the LLM can see what happened
+            session_data["question_history"].append({
+                "question": gen_q.text,
+                "answer": f"[输入被安全护栏拦截: {guard_result.reason}]",
+                "score": 0,
+                "skill": current_skill,
+            })
             db_session.add(blocked_answer)
             await db_session.flush()
             return blocked_answer

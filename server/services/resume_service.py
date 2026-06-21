@@ -86,7 +86,7 @@ class ResumeService:
         except Exception:
             pass
         try:
-            llm = llm_factory.get_chat_model(temperature=0.1)
+            llm = llm_factory.get_chat_model(temperature=0.1, max_tokens=3000)
             chain = RESUME_EXTRACTION_PROMPT | llm | parser
             return await chain.ainvoke({"resume_text": text[:8000]})
         finally:

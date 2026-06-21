@@ -241,7 +241,10 @@ async function handleSubmitAnswer() {
     }
 
     userInput.value = ''
-    store.incrementAnswered()
+    // Warmup questions don't count toward the question total
+    if (currentQuestionMeta.value?.skill_module !== 'warmup') {
+      store.incrementAnswered()
+    }
 
     if (!res.data.next_question_ready) {
       ElMessage.success('面试完成！')

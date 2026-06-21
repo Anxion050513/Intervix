@@ -26,6 +26,7 @@ class LLMFactory:
         temperature: float = 0.7,
         streaming: bool = False,
         model: str | None = None,
+        max_tokens: int | None = None,
         callbacks: list | None = None,
     ) -> ChatOpenAI:
         """Get a configured ChatOpenAI instance.
@@ -52,6 +53,8 @@ class LLMFactory:
             temperature=temperature,
             streaming=streaming,
         )
+        if max_tokens is not None:
+            kwargs["max_tokens"] = max_tokens
         if all_callbacks:
             kwargs["callbacks"] = all_callbacks
         return ChatOpenAI(**kwargs)
