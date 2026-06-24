@@ -29,9 +29,10 @@ class CodingChallengeSkill(BaseSkill):
 1. 题目应该是中等难度算法题或实际编程场景
 2. 提供函数签名/模板
 3. 给出 2-3 个测试用例
+4. 题目描述用纯文字，禁止 Markdown 语法（**粗体**、- 列表等），代码部分用注释说明
 
 输出 JSON：
-{{"question": "题目描述（中文）", "template": "def solution(...):", "test_cases": [{{"input": "...", "expected": "..."}}], "difficulty": "medium"}}
+{{"question": "题目描述（中文，纯文字）", "template": "def solution(...):", "test_cases": [{{"input": "...", "expected": "..."}}], "difficulty": "medium"}}
 
 只输出 JSON。"""
 

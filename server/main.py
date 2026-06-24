@@ -7,6 +7,16 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+# Force UTF-8 encoding on Windows so Chinese characters render correctly
+# in console output and logging. Must be done before any I/O.
+if sys.platform == "win32":
+    try:
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+        sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        # Fallback: set environment variable (affects subprocesses)
+        os.environ.setdefault("PYTHONIOENCODING", "utf-8")
+
 # Write logs to file so they're easy to search
 logging.basicConfig(
     level=logging.WARNING,

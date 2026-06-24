@@ -34,6 +34,142 @@
     }
   },
   {
+    "test_id": "warmup_003",
+    "skill_module": "warmup",
+    "question_text": "欢迎！请用几分钟介绍一下你的技术背景和最近在做的项目。",
+    "user_answer": "我做了7年Java后端，一直在一家金融科技公司工作。最近三年主要负责支付系统的微服务改造，从单体拆成了20+个服务，日交易量千万级。技术栈是Spring Cloud + Kafka + MySQL。未来想往技术管理方向发展。",
+    "expected_score": null,
+    "expected_dimensions": {
+      "clarity": 88,
+      "practical_experience": 90
+    },
+    "key_points": ["经验丰富", "有具体项目", "有职业方向"],
+    "context": {
+      "tech_stack": [{"name": "Java", "proficiency": "advanced", "years": 7}],
+      "years_experience": 7,
+      "difficulty": "hard"
+    }
+  },
+  {
+    "test_id": "warmup_004",
+    "skill_module": "warmup",
+    "question_text": "你好！请介绍一下你自己和你擅长的技术方向。",
+    "user_answer": "我做了4年DevOps，主要在云原生方向。熟悉K8s、Terraform和CI/CD流水线。最近在做一个多云管理平台，统一管理AWS和阿里云资源。喜欢写自动化工具，之前写过一个服务自愈系统，减少了70%的告警。希望下一份工作能深入Service Mesh。",
+    "expected_score": null,
+    "expected_dimensions": {
+      "clarity": 82,
+      "practical_experience": 85
+    },
+    "key_points": ["清晰的领域定位", "有量化成果", "有技术规划"],
+    "context": {
+      "tech_stack": [{"name": "Kubernetes", "proficiency": "advanced", "years": 4}],
+      "years_experience": 4,
+      "difficulty": "medium"
+    }
+  },
+  {
+    "test_id": "warmup_005",
+    "skill_module": "warmup",
+    "question_text": "欢迎参加面试！请分享你的技术背景和你最有成就感的一个项目。",
+    "user_answer": "我做了3年数据科学，主攻推荐系统。最有成就感的项目是从零搭建了电商推荐引擎，用协同过滤+深度学习，A/B测试后转化率提升18%。技术栈是Python + PyTorch + Spark。我希望下一份工作除了建模还能做ML工程化。",
+    "expected_score": null,
+    "expected_dimensions": {
+      "clarity": 85,
+      "practical_experience": 82
+    },
+    "key_points": ["方向明确", "有量化业务成果", "表述清晰"],
+    "context": {
+      "tech_stack": [{"name": "Python", "proficiency": "advanced", "years": 3}],
+      "years_experience": 3,
+      "difficulty": "medium"
+    }
+  },
+  {
+    "test_id": "warmup_006",
+    "skill_module": "warmup",
+    "question_text": "你好，请简单介绍你的技术背景和你的团队角色。",
+    "user_answer": "我做了5年iOS开发，从OC写到Swift，现在完全用SwiftUI。最近代表项目是一个健身App，我负责架构设计，集成了HealthKit和Watch连接，日活50万。技术上主要解决了实时心率同步和动画性能优化。希望以后能接触跨平台方案。",
+    "expected_score": null,
+    "expected_dimensions": {
+      "clarity": 83,
+      "practical_experience": 87
+    },
+    "key_points": ["领域经验扎实", "有具体产品数据", "规划清晰"],
+    "context": {
+      "tech_stack": [{"name": "Swift", "proficiency": "advanced", "years": 5}],
+      "years_experience": 5,
+      "difficulty": "medium"
+    }
+  },
+  {
+    "test_id": "warmup_007",
+    "skill_module": "warmup",
+    "question_text": "欢迎！请简单介绍一下你自己，包括你的学习经历和做过的项目。",
+    "user_answer": "我刚毕业半年，目前在XX公司做前端实习生。在学校做过几个项目：一个Vue校园二手平台，一个Python简单推荐系统。学校主要教了Java和数据结构，实习期间自学了React和TypeScript。虽然经验不多但学习能力很强，希望能在这个岗位快速成长。",
+    "expected_score": null,
+    "expected_dimensions": {
+      "clarity": 75,
+      "practical_experience": 30
+    },
+    "key_points": ["诚实表达经验水平", "展示了学习意愿", "有具体项目"],
+    "context": {
+      "tech_stack": [{"name": "JavaScript", "proficiency": "beginner", "years": 0.5}],
+      "years_experience": 0.5,
+      "difficulty": "easy"
+    }
+  },
+  {
+    "test_id": "warmup_008",
+    "skill_module": "warmup",
+    "question_text": "欢迎参加高级工程师面试。请用3分钟介绍你的技术历程和最有技术含量的项目。",
+    "user_answer": "12年全栈经验，从LAMP时代一路到云原生。前6年偏后端，后6年扩展到前端和基础设施。最有含金量的项目是去年做的实时数据协作平台——类似Google Docs但面向数据分析场景。我主导了整个分布式架构，用CRDT解决冲突，WebSocket管理5000+并发。从0到1交付，现在支撑公司核心业务线。",
+    "expected_score": null,
+    "expected_dimensions": {
+      "clarity": 92,
+      "practical_experience": 95
+    },
+    "key_points": ["经验丰富且表述条理", "项目深度高", "技术视野广"],
+    "context": {
+      "tech_stack": [{"name": "Go", "proficiency": "advanced", "years": 12}],
+      "years_experience": 12,
+      "difficulty": "hard"
+    }
+  },
+  {
+    "test_id": "warmup_009",
+    "skill_module": "warmup",
+    "question_text": "欢迎！请介绍一下你的背景，你是如何转行到软件开发的？",
+    "user_answer": "我本科学电子工程，工作两年后自学转行到软件开发。目前做Go后端开发两年了，也接触了Docker和K8s。虽然CS经验不多，但EE背景让我在操作系统和网络底层理解上有优势。一直在补算法和系统设计，LeetCode做了大概300题。",
+    "expected_score": null,
+    "expected_dimensions": {
+      "clarity": 88,
+      "practical_experience": 45
+    },
+    "key_points": ["转行经历清晰", "能扬长避短", "展示了学习努力"],
+    "context": {
+      "tech_stack": [{"name": "Go", "proficiency": "intermediate", "years": 2}],
+      "years_experience": 2,
+      "difficulty": "hard"
+    }
+  },
+  {
+    "test_id": "warmup_010",
+    "skill_module": "warmup",
+    "question_text": "你好！请介绍你的技术背景和你在测试方面的经验。",
+    "user_answer": "我做了4年测试开发，从手工测试做到自动化测试架构。目前在一家SaaS公司负责测试框架搭建——用Playwright做端到端测试，pytest做接口测试，全部集成到Jenkins每次提交自动跑。日常写Python和少量Java。希望下一份工作能深入质量工程方向。",
+    "expected_score": null,
+    "expected_dimensions": {
+      "clarity": 80,
+      "practical_experience": 78
+    },
+    "key_points": ["从手工到自动化的成长路径", "工具栈具体", "有方向规划"],
+    "context": {
+      "tech_stack": [{"name": "Python", "proficiency": "intermediate", "years": 4}],
+      "years_experience": 4,
+      "difficulty": "medium"
+    }
+  },
+  {
     "test_id": "tech_001",
     "skill_module": "technical_qa",
     "question_text": "请解释Python中的GIL（全局解释器锁）是什么，它如何影响多线程程序的性能？在什么场景下GIL不会成为瓶颈？",
@@ -74,6 +210,166 @@
     }
   },
   {
+    "test_id": "tech_003",
+    "skill_module": "technical_qa",
+    "question_text": "REST和GraphQL有什么区别？各自适合什么场景？",
+    "reference_answer": "REST围绕资源设计，每个资源有独立的URL端点，返回固定结构；GraphQL只有一个端点，客户端通过查询语言指定需要的字段。REST简单成熟、缓存友好，适合内部API和简单CRUD。GraphQL灵活、减少过度获取，适合复杂数据关联的前端场景。",
+    "user_answer": "REST有多个端点每个返回固定数据，GraphQL只有一个端点客户端按需取字段。GraphQL适合前端数据关联复杂的场景，比如电商页面需要查商品加用户加订单一次搞定，不像REST要调多次。但REST更简单成熟，缓存方便，内部服务间调用还是用REST好。",
+    "expected_score": 80,
+    "expected_dimensions": {
+      "technical_accuracy": 82,
+      "depth_breadth": 78,
+      "clarity": 85,
+      "practical_experience": 75
+    },
+    "key_points": ["正确对比两种范式", "说明了选择标准", "有实际场景举例"],
+    "context": {
+      "tech_stack": [{"name": "Node.js", "proficiency": "advanced", "years": 4}],
+      "years_experience": 4,
+      "difficulty": "medium"
+    }
+  },
+  {
+    "test_id": "tech_004",
+    "skill_module": "technical_qa",
+    "question_text": "Docker容器和虚拟机（VM）的本质区别是什么？为什么容器启动比VM快得多？",
+    "reference_answer": "VM通过Hypervisor虚拟化硬件，每个VM运行完整Guest OS，启动慢、资源开销大。Docker是操作系统级虚拟化，利用Linux namespace和cgroup做隔离和资源限制，所有容器共享宿主机内核，启动快、资源占用少。VM隔离性更强，适合不同OS环境；Docker更轻量，适合微服务和CI/CD。",
+    "user_answer": "VM是在硬件层面虚拟化，每个VM有独立的操作系统内核所以启动要几十秒到几分钟。Docker是进程级隔离，所有容器共享宿主机内核，启动只要几秒。因为Docker不用加载完整的OS，直接用Linux namespace隔离进程空间就好了。但VM隔离性更强，如果需要完全不同的操作系统就得用VM。",
+    "expected_score": 78,
+    "expected_dimensions": {
+      "technical_accuracy": 80,
+      "depth_breadth": 72,
+      "clarity": 82,
+      "practical_experience": 78
+    },
+    "key_points": ["区分了虚拟化层级", "解释了启动速度差异", "提到适用场景"],
+    "context": {
+      "tech_stack": [{"name": "Docker", "proficiency": "advanced", "years": 3}],
+      "years_experience": 3,
+      "difficulty": "medium"
+    }
+  },
+  {
+    "test_id": "tech_005",
+    "skill_module": "technical_qa",
+    "question_text": "SQL和NoSQL数据库的核心区别是什么？什么场景应该选NoSQL？",
+    "reference_answer": "SQL采用结构化表模型，遵循ACID事务，Schema预先定义。NoSQL支持多种数据模型（键值、文档、列族、图），Schema灵活，通常遵循BASE（最终一致性）。NoSQL适合大数据量水平扩展、非结构化数据、快速迭代。SQL适合事务性强、数据关系复杂、需要报表分析的场景。",
+    "user_answer": "SQL是结构化的表，有严格的Schema和ACID事务。NoSQL比较灵活，比如MongoDB存JSON文档，Redis做缓存，不用预先定义结构。NoSQL适合日志存储这种数据量大结构不固定的场景，或者需要快速水平扩展。但金融交易这种强一致性场景必须用SQL。简单说就是：数据结构固定用SQL，结构多变用NoSQL。",
+    "expected_score": 80,
+    "expected_dimensions": {
+      "technical_accuracy": 82,
+      "depth_breadth": 78,
+      "clarity": 83,
+      "practical_experience": 80
+    },
+    "key_points": ["对比了两种数据库范式", "给出场景选择标准", "有实际产品举例"],
+    "context": {
+      "tech_stack": [{"name": "MySQL", "proficiency": "advanced", "years": 5}],
+      "years_experience": 5,
+      "difficulty": "medium"
+    }
+  },
+  {
+    "test_id": "tech_006",
+    "skill_module": "technical_qa",
+    "question_text": "微服务架构和单体架构各有什么优缺点？什么时候应该从单体迁移到微服务？",
+    "reference_answer": "单体架构开发部署简单、事务管理直接，但扩展受限、耦合严重。微服务独立部署和扩展、技术异构、故障隔离，但网络开销大、数据一致性复杂。迁移时机：团队规模扩大导致协调成本高、不同模块有不同扩展需求、部署频率提高。应先单体快速验证产品，再根据组织边界渐进拆分。",
+    "user_answer": "单体好处是开发简单，一个工程跑起来就能用，调试也方便。坏处是代码多了以后耦合严重，改一行可能影响全局。微服务好处是独立部署，每个服务可以单独扩缩容，团队自治。坏处是分布式系统的老问题——网络延迟、数据一致性、监控难。不要一上来就微服务，等单体代码量大了、团队人多冲突多了，再按业务边界慢慢拆。",
+    "expected_score": 85,
+    "expected_dimensions": {
+      "technical_accuracy": 87,
+      "depth_breadth": 85,
+      "clarity": 84,
+      "practical_experience": 85
+    },
+    "key_points": ["对比优缺点全面", "给出迁移时机判断", "有用实践经验"],
+    "context": {
+      "tech_stack": [{"name": "Java", "proficiency": "advanced", "years": 6}],
+      "years_experience": 6,
+      "difficulty": "hard"
+    }
+  },
+  {
+    "test_id": "tech_007",
+    "skill_module": "technical_qa",
+    "question_text": "什么是CI/CD？它给开发团队带来什么价值？",
+    "reference_answer": "CI（持续集成）指频繁合并代码到主干，每次自动触发构建和测试。CD可指持续交付（自动构建可发布制品）或持续部署（自动部署到生产）。核心价值：快速反馈、提高发布频率、减少部署风险、标准化流程。",
+    "user_answer": "CI就是大家频繁合代码，每次合了自动跑测试和构建。CD就是测试过了自动部署——有的团队只自动出包（持续交付），有的直接部署到线上（持续部署）。好处很明显：以前手工发布可能两周一次还容易出错，接入CI/CD后一天能发布好几次，出问题也容易定位因为变更小。",
+    "expected_score": 75,
+    "expected_dimensions": {
+      "technical_accuracy": 75,
+      "depth_breadth": 72,
+      "clarity": 83,
+      "practical_experience": 78
+    },
+    "key_points": ["正确解释CI/CD概念", "说明了业务价值", "有发布频率对比"],
+    "context": {
+      "tech_stack": [{"name": "GitLab CI", "proficiency": "intermediate", "years": 3}],
+      "years_experience": 3,
+      "difficulty": "easy"
+    }
+  },
+  {
+    "test_id": "tech_008",
+    "skill_module": "technical_qa",
+    "question_text": "TCP和UDP有什么区别？各自适合什么应用场景？",
+    "reference_answer": "TCP是面向连接的可靠传输协议，通过三次握手建立连接，有确认重传和拥塞控制机制。UDP是无连接协议，不保证可靠传输但头部开销小、延迟低。TCP适合文件传输、网页访问。UDP适合视频通话、在线游戏、DNS查询。",
+    "user_answer": "TCP是可靠的，有三次握手和重传机制，保证数据按顺序到。UDP就是发出去不管了，不保证到不到。所以网页浏览、文件下载这种不能丢数据的用TCP；视频通话、直播、游戏这种要求低延迟能容忍偶尔丢包的用UDP。还有DNS查询也是UDP因为快，一个包就够了。",
+    "expected_score": 83,
+    "expected_dimensions": {
+      "technical_accuracy": 85,
+      "depth_breadth": 80,
+      "clarity": 87,
+      "practical_experience": 78
+    },
+    "key_points": ["对比了可靠性和时序", "分场景说明了选择理由", "提到了额外应用"],
+    "context": {
+      "tech_stack": [{"name": "C", "proficiency": "intermediate", "years": 4}],
+      "years_experience": 4,
+      "difficulty": "medium"
+    }
+  },
+  {
+    "test_id": "tech_009",
+    "skill_module": "technical_qa",
+    "question_text": "Git中rebase和merge有什么区别？各自的使用场景是什么？",
+    "reference_answer": "Merge创建合并提交保留完整分支历史。Rebase将当前分支提交重新应用在目标分支上，产生线性历史。本地开发用rebase保持整洁；公共分支用merge保留历史。重要原则：不要rebase已push的公共分支。",
+    "user_answer": "Merge会生成一个merge commit，保留分支的历史痕迹。Rebase是把你的提交搬到目标分支最新提交的后面，历史变成一条直线。我的习惯是本地开发时用rebase保持干净，推到远程后用merge保留记录。但有个禁忌——绝对不要rebase已经推到远程的分支，会搞乱别人的历史。",
+    "expected_score": 78,
+    "expected_dimensions": {
+      "technical_accuracy": 80,
+      "depth_breadth": 72,
+      "clarity": 84,
+      "practical_experience": 80
+    },
+    "key_points": ["区别解释正确", "给出使用策略", "提到禁忌场景"],
+    "context": {
+      "tech_stack": [{"name": "Git", "proficiency": "advanced", "years": 5}],
+      "years_experience": 5,
+      "difficulty": "easy"
+    }
+  },
+  {
+    "test_id": "tech_010",
+    "skill_module": "technical_qa",
+    "question_text": "请解释数据库事务的ACID特性，以及分布式系统中的BASE理论。",
+    "reference_answer": "ACID：原子性（事务不可分割）、一致性（数据满足约束）、隔离性（并发事务隔离）、持久性（提交后永久保存）。分布式系统受CAP约束，BASE作为替代：基本可用、软状态、最终一致性。核心业务走ACID，非核心走BASE。",
+    "user_answer": "ACID是关系型数据库的四个保证：原子性就是要么全做要么全不做，一致性是事务前后数据都符合规则，隔离性是并发事务互不影响，持久性是提交后数据不丢。但在分布式系统里强一致性代价太高，所以有了BASE——基本可用、允许中间状态、只要最终一致就行。实际工程里核心支付走ACID，但消息通知这种场景最终一致性就够了。",
+    "expected_score": 88,
+    "expected_dimensions": {
+      "technical_accuracy": 90,
+      "depth_breadth": 87,
+      "clarity": 86,
+      "practical_experience": 85
+    },
+    "key_points": ["ACID四点解释清晰", "说明了BASE的由来", "结合实际工程选型"],
+    "context": {
+      "tech_stack": [{"name": "PostgreSQL", "proficiency": "advanced", "years": 6}],
+      "years_experience": 6,
+      "difficulty": "hard"
+    }
+  },
+  {
     "test_id": "behavior_001",
     "skill_module": "behavioral",
     "question_text": "请分享一个你在团队中解决技术分歧的经历。你是如何处理不同意见的？最终结果如何？",
@@ -107,6 +403,158 @@
     "key_points": ["主动承担责任", "有明确的方法论", "面临技术深度挑战", "给出了量化结果"],
     "context": {
       "tech_stack": [{"name": "MySQL", "proficiency": "advanced", "years": 5}],
+      "years_experience": 5,
+      "difficulty": "medium"
+    }
+  },
+  {
+    "test_id": "behavior_003",
+    "skill_module": "behavioral",
+    "question_text": "请分享一个你在项目中遇到的失败经历。发生了什么，你学到了什么？",
+    "user_answer": "去年我们想把旧系统拆成微服务，但没充分评估数据耦合——原单体数据库200多张表，很多业务逻辑依赖跨表JOIN和存储过程。硬拆后出现数据不一致，上线第一天就出了重复扣款的问题。我们马上回滚了。后来用绞杀者模式逐步替换——先提取新功能到微服务，老的稳定逻辑保留。这件事教会我：架构重构数据层的解耦比代码拆分更重要。",
+    "expected_score": 82,
+    "expected_dimensions": {
+      "technical_accuracy": 80,
+      "depth_breadth": 85,
+      "clarity": 83,
+      "practical_experience": 85
+    },
+    "key_points": ["诚实描述了失败", "分析了根因", "说明了改进方法", "有反思总结"],
+    "context": {
+      "tech_stack": [{"name": "Java", "proficiency": "advanced", "years": 5}],
+      "years_experience": 5,
+      "difficulty": "medium"
+    }
+  },
+  {
+    "test_id": "behavior_004",
+    "skill_module": "behavioral",
+    "question_text": "请分享一个你指导或帮助新人成长的具体例子。",
+    "user_answer": "组里来了一位应届生，基础还行但不敢独立接需求，总是等人分配。我主动申请做他的导师——前两周每天花20分钟跟他过代码，不只讲怎么写更讲为什么这么写。第三周开始给他小任务但不给完整方案，让他自己设计再来找我review。一个月后他就能独立完成中等复杂度的需求了。我的体会是帮新人建立信心比传授知识更重要。",
+    "expected_score": 80,
+    "expected_dimensions": {
+      "technical_accuracy": 75,
+      "depth_breadth": 80,
+      "clarity": 85,
+      "practical_experience": 82
+    },
+    "key_points": ["有具体指导方法", "从扶到放的渐进过程", "有量化进展", "总结了心得"],
+    "context": {
+      "tech_stack": [{"name": "Python", "proficiency": "advanced", "years": 5}],
+      "years_experience": 5,
+      "difficulty": "easy"
+    }
+  },
+  {
+    "test_id": "behavior_005",
+    "skill_module": "behavioral",
+    "question_text": "请描述一个你在极大时间压力下完成项目的经历。你是如何应对的？",
+    "user_answer": "产品需要在双11前上线新功能，只有三周时间——正常要六周。我第一件事就是跟产品经理一起砍范围：确定P0必须做、P1尽量做、P2直接砍掉。第二是每日站会控制在10分钟内只讲阻塞项。第三是我自己承担了最复杂的数据同步模块，因为这部分出问题影响最大。最后按时上线了，双11期间零故障。我认识到deadline面前主动管理范围比加班更有效。",
+    "expected_score": 85,
+    "expected_dimensions": {
+      "technical_accuracy": 82,
+      "depth_breadth": 85,
+      "clarity": 88,
+      "practical_experience": 88
+    },
+    "key_points": ["优先级管理具体", "有沟通协商", "承担了最难点", "有量化结果"],
+    "context": {
+      "tech_stack": [{"name": "Go", "proficiency": "advanced", "years": 6}],
+      "years_experience": 6,
+      "difficulty": "hard"
+    }
+  },
+  {
+    "test_id": "behavior_006",
+    "skill_module": "behavioral",
+    "question_text": "请描述一次你收到不太正面的反馈的经历。你怎么应对的？有什么改变？",
+    "user_answer": "有次360度回顾，同事反馈说我写代码快但文档太少，接手的人要花很多时间理解。一开始我不太服气，觉得代码写得好就是最好的文档。但后来仔细看了我遗留的几个模块，确实发现即使代码清楚但业务意图不明确。于是我开始要求自己每个重要PR必须包含设计文档更新，关键业务逻辑加注释说明为什么。两个月后团队交接效率明显提升。这个反馈改变了我对好工程师的定义。",
+    "expected_score": 83,
+    "expected_dimensions": {
+      "technical_accuracy": 80,
+      "depth_breadth": 82,
+      "clarity": 85,
+      "practical_experience": 85
+    },
+    "key_points": ["客观接受反馈", "进行了反思和验证", "有具体改进行动", "得到了正向结果"],
+    "context": {
+      "tech_stack": [{"name": "TypeScript", "proficiency": "advanced", "years": 4}],
+      "years_experience": 4,
+      "difficulty": "medium"
+    }
+  },
+  {
+    "test_id": "behavior_007",
+    "skill_module": "behavioral",
+    "question_text": "请分享一个你与产品经理或设计师等非技术角色紧密合作的经历。",
+    "user_answer": "在做一个后台管理系统时，产品给的PRD比较模糊。我没有直接按PRD开发，而是约了产品和设计师一起开了一个小时的用户故事映射会——把核心流程在白板上画出来，用具体场景反推交互细节。过程中发现了几个PRD没覆盖到的边缘情况，我们一起补充了。上线后需求返工率比以往低了大概40%。技术和产品之间多主动沟通，对项目质量提升非常大。",
+    "expected_score": 80,
+    "expected_dimensions": {
+      "technical_accuracy": 75,
+      "depth_breadth": 82,
+      "clarity": 85,
+      "practical_experience": 82
+    },
+    "key_points": ["主动发起协作", "用了具体方法", "解决了实际问题", "有量化效果"],
+    "context": {
+      "tech_stack": [{"name": "React", "proficiency": "advanced", "years": 4}],
+      "years_experience": 4,
+      "difficulty": "medium"
+    }
+  },
+  {
+    "test_id": "behavior_008",
+    "skill_module": "behavioral",
+    "question_text": "请分享一个你主动承担职责范围之外任务的经历。为什么这样做？",
+    "user_answer": "我注意到每次上线都有一系列手工操作——查配置、验证数据库迁移、灰度放量——全靠一个发布checklist，但每次还是会漏一两步。虽然这不是分配给我的任务，我还是花了一个周末用Python写了一个发布自动化工具，把checklist变成了可执行脚本，带状态追踪和失败回滚。分享给部门后三个团队都在用。领导后来说这个工具是他们决定让我升senior的原因之一。",
+    "expected_score": 88,
+    "expected_dimensions": {
+      "technical_accuracy": 82,
+      "depth_breadth": 88,
+      "clarity": 90,
+      "practical_experience": 92
+    },
+    "key_points": ["发现了团队痛点", "主动动手解决", "有具体成果", "影响超出个人范围"],
+    "context": {
+      "tech_stack": [{"name": "Python", "proficiency": "advanced", "years": 5}],
+      "years_experience": 5,
+      "difficulty": "hard"
+    }
+  },
+  {
+    "test_id": "behavior_009",
+    "skill_module": "behavioral",
+    "question_text": "你如何平衡技术债务偿还和新功能开发？请举个实际例子。",
+    "user_answer": "这是经典矛盾。我的做法：第一区分债务类型——工具链升级和代码整理是可控的，但架构性问题比如单点故障必须优先处理。第二用数据说话——把技术债折算成业务成本，比如因为连接池没重试机制导致上个月3次临时故障共2小时服务降级，这比说代码写得乱更有效。第三采用搭车模式——每次开发新功能时顺手还一点相关模块的债。比如有次做用户画像功能，我顺势把数据查询层从直接SQL改成了Repository模式。",
+    "expected_score": 87,
+    "expected_dimensions": {
+      "technical_accuracy": 85,
+      "depth_breadth": 88,
+      "clarity": 88,
+      "practical_experience": 90
+    },
+    "key_points": ["有清晰方法论", "用数据说服", "搭车策略具体", "有实际案例"],
+    "context": {
+      "tech_stack": [{"name": "Ruby", "proficiency": "advanced", "years": 6}],
+      "years_experience": 6,
+      "difficulty": "hard"
+    }
+  },
+  {
+    "test_id": "behavior_010",
+    "skill_module": "behavioral",
+    "question_text": "请分享一个你处理与客户或业务方持不同意见的经历。",
+    "user_answer": "业务方想做一个实时抽奖功能——全站弹窗、30天内随时兑换。技术评估后发现实时抽奖QPS要求很高，弹窗还会影响用户体验和SEO。我没有直接说做不了，而是给了两个方案：方案A降级为每天定时开奖加站内通知，成本低风险小；方案B做实时但需要增加缓存和削峰，多两周开发时间。把利弊逐个对齐后他们选了A方案——因为他们本质要的是营销效果不是技术炫技。上线后参与率达到预期的90%。",
+    "expected_score": 84,
+    "expected_dimensions": {
+      "technical_accuracy": 80,
+      "depth_breadth": 85,
+      "clarity": 88,
+      "practical_experience": 85
+    },
+    "key_points": ["没有直接拒绝", "提供了替代方案", "分析了利弊", "理解了对方本质需求"],
+    "context": {
+      "tech_stack": [{"name": "Node.js", "proficiency": "advanced", "years": 5}],
       "years_experience": 5,
       "difficulty": "medium"
     }
@@ -150,6 +598,158 @@
     }
   },
   {
+    "test_id": "design_003",
+    "skill_module": "system_design",
+    "question_text": "设计一个API限流器（Rate Limiter），限制每个用户每分钟最多100次请求。描述核心算法和架构。",
+    "user_answer": "核心算法用令牌桶（Token Bucket）——每个用户一个桶，容量100个令牌，每分钟自动补充。请求来了先取令牌，取到放行，取不到返回429。实现上：Redis做令牌存储，用Sorted Set或简单的key+TTL计数。架构分两层：网关层做粗粒度限流（Nginx或Kong），应用层做细粒度按用户限流。需要考虑分布式一致性——多实例间共享Redis计数器防止绕过。",
+    "expected_score": 82,
+    "expected_dimensions": {
+      "technical_accuracy": 85,
+      "depth_breadth": 80,
+      "clarity": 83,
+      "practical_experience": 78
+    },
+    "key_points": ["选了合适的算法", "说明了存储方案", "考虑了分布式场景", "分层设计"],
+    "context": {
+      "tech_stack": [{"name": "Go", "proficiency": "advanced", "years": 5}],
+      "years_experience": 5,
+      "difficulty": "medium"
+    }
+  },
+  {
+    "test_id": "design_004",
+    "skill_module": "system_design",
+    "question_text": "设计一个类似Twitter的信息流（News Feed）系统。用户关注了谁就看到谁的推文。描述核心数据结构和读取流程。",
+    "user_answer": "核心有两种模式：推模式和拉模式。推模式：用户发推文时，写入所有粉丝的timeline缓存（适合粉丝少的名人发推代价太大）。拉模式：用户刷新时，实时查询所有关注的人的最新推文（适合粉丝多的大V）。实际用混合模式：普通用户用推模式写入Redis的timeline list，大V用拉模式只在各自的推文表里存一份。用户刷新时，普通follow的从Redis读+大V部分实时拉取合并排序。",
+    "expected_score": 78,
+    "expected_dimensions": {
+      "technical_accuracy": 80,
+      "depth_breadth": 82,
+      "clarity": 78,
+      "practical_experience": 72
+    },
+    "key_points": ["区分了推拉模式", "考虑了名人问题", "使用了混合方案", "有存储选型"],
+    "context": {
+      "tech_stack": [{"name": "Python", "proficiency": "advanced", "years": 4}],
+      "years_experience": 4,
+      "difficulty": "hard"
+    }
+  },
+  {
+    "test_id": "design_005",
+    "skill_module": "system_design",
+    "question_text": "设计一个分布式键值存储系统（Key-Value Store）。要求高可用、可水平扩展。描述核心架构。",
+    "user_answer": "核心用一致性哈希做数据分片——每个节点负责一部分key的哈希空间。节点加入或退出时只影响相邻节点的数据，减少数据迁移量。高可用方面：每个分片有多个副本（通常3份），用Raft或Paxos共识算法保持副本一致。客户端写操作发送到主副本，主副本同步到从副本后返回确认。读操作可以从任意副本读取。类似Dynamo或Cassandra的设计思路。",
+    "expected_score": 85,
+    "expected_dimensions": {
+      "technical_accuracy": 88,
+      "depth_breadth": 85,
+      "clarity": 82,
+      "practical_experience": 80
+    },
+    "key_points": ["一致性哈希解决分片", "副本机制保高可用", "共识算法保证一致", "区分读写路径"],
+    "context": {
+      "tech_stack": [{"name": "Rust", "proficiency": "intermediate", "years": 3}],
+      "years_experience": 3,
+      "difficulty": "hard"
+    }
+  },
+  {
+    "test_id": "design_006",
+    "skill_module": "system_design",
+    "question_text": "设计一个推送通知系统，支持向千万级用户推送消息。描述如何保证送达率和低延迟。",
+    "user_answer": "架构分三层：消息创建层（业务方调用API提交推送请求）、消息分发层（根据用户标签和设备类型路由到对应通道）、设备送达层（通过APNs/FCM等厂商通道推送到设备）。核心挑战是海量用户下的分发速度——用消息队列（Kafka）缓冲，多worker并行消费。送达保障：每个推送任务记录状态，失败自动重试3次，最终失败记入离线消息表等用户上线后补推。去重通过每条消息的唯一ID防止重复推送。",
+    "expected_score": 80,
+    "expected_dimensions": {
+      "technical_accuracy": 82,
+      "depth_breadth": 80,
+      "clarity": 81,
+      "practical_experience": 78
+    },
+    "key_points": ["三层架构清晰", "用消息队列削峰", "有重试和去重机制", "考虑了厂商通道"],
+    "context": {
+      "tech_stack": [{"name": "Java", "proficiency": "advanced", "years": 5}],
+      "years_experience": 5,
+      "difficulty": "medium"
+    }
+  },
+  {
+    "test_id": "design_007",
+    "skill_module": "system_design",
+    "question_text": "设计一个文件上传/图片托管服务。支持用户上传、存储和CDN加速访问。描述核心架构。",
+    "user_answer": "上传流程：客户端→API网关做大小限制→应用服务做格式校验和病毒扫描→异步转码生成缩略图→存储到对象存储（S3/OSS）→元数据写入数据库。访问流程：用户请求图片→先查CDN→CDN miss则回源到对象存储→CDN缓存后后续请求直接命中。关键点：上传要限制并发大小和频率防止滥用，转码用消息队列异步处理，大文件用分片上传+断点续传。",
+    "expected_score": 78,
+    "expected_dimensions": {
+      "technical_accuracy": 80,
+      "depth_breadth": 78,
+      "clarity": 80,
+      "practical_experience": 75
+    },
+    "key_points": ["流程分上传和访问两条线", "用了对象存储和CDN", "有安全校验", "异步处理转码"],
+    "context": {
+      "tech_stack": [{"name": "Python", "proficiency": "intermediate", "years": 3}],
+      "years_experience": 3,
+      "difficulty": "medium"
+    }
+  },
+  {
+    "test_id": "design_008",
+    "skill_module": "system_design",
+    "question_text": "设计一个搜索自动补全系统（Search Autocomplete），类似Google搜索框。描述数据结构和查询流程。",
+    "user_answer": "核心数据结构用Trie（前缀树）存储热门搜索词，每个节点存top 10的候选词和热度。查询时根据输入前缀在Trie中快速找到对应节点，返回该节点的top 10候选词。数据构建：离线用MapReduce或Spark分析搜索日志，统计词的频率，定期更新Trie。在线服务：Trie加载在内存中（Redis或本地缓存），查询延迟可以做到毫秒级。热门搜索词按地域和时间个性化加权。",
+    "expected_score": 82,
+    "expected_dimensions": {
+      "technical_accuracy": 85,
+      "depth_breadth": 82,
+      "clarity": 82,
+      "practical_experience": 75
+    },
+    "key_points": ["选Trie做数据结构", "区分了离线和在线", "考虑了top K策略", "提到个性化"],
+    "context": {
+      "tech_stack": [{"name": "Java", "proficiency": "advanced", "years": 5}],
+      "years_experience": 5,
+      "difficulty": "hard"
+    }
+  },
+  {
+    "test_id": "design_009",
+    "skill_module": "system_design",
+    "question_text": "设计一个API网关，负责请求路由、认证和限流。描述核心功能和架构。",
+    "user_answer": "API网关是微服务架构的入口。核心功能：1）路由——根据URL前缀映射到对应后端服务，从配置中心动态拉路由表；2）认证——在网关层统一验证JWT或API Key，校验通过后把用户信息透传下去；3）限流——按用户或IP维度做令牌桶限流，Redis存储。架构上网关本身要无状态以方便水平扩展，配置用Nacos或Etcd动态下发。网关按职责拆成多个filter链：认证→限流→路由→日志→转发。",
+    "expected_score": 83,
+    "expected_dimensions": {
+      "technical_accuracy": 84,
+      "depth_breadth": 82,
+      "clarity": 85,
+      "practical_experience": 80
+    },
+    "key_points": ["三大核心功能", "无状态设计", "Filter链模式", "动态配置"],
+    "context": {
+      "tech_stack": [{"name": "Go", "proficiency": "advanced", "years": 6}],
+      "years_experience": 6,
+      "difficulty": "medium"
+    }
+  },
+  {
+    "test_id": "design_010",
+    "skill_module": "system_design",
+    "question_text": "设计一个分布式任务调度系统（类似Celery）。任务可以定时或延迟执行，支持失败重试。",
+    "user_answer": "架构分三块：任务生产者提交任务到队列（Redis List或RabbitMQ），Worker从队列拉取任务执行，调度器管理定时触发。核心组件：1）任务队列用Redis的Sorted Set做延迟队列——score存执行时间，Worker定时轮询到期任务；2）任务状态管理用数据库记录（pending→running→success/failed）；3）失败重试用指数退避策略。可靠性：Worker执行任务前先标记running防止重复执行，加上超时机制防止卡死，ACK机制保证至少一次送达。",
+    "expected_score": 84,
+    "expected_dimensions": {
+      "technical_accuracy": 86,
+      "depth_breadth": 83,
+      "clarity": 84,
+      "practical_experience": 82
+    },
+    "key_points": ["生产者-消费者模式", "延迟队列方案", "状态机设计", "可靠性机制"],
+    "context": {
+      "tech_stack": [{"name": "Python", "proficiency": "advanced", "years": 5}],
+      "years_experience": 5,
+      "difficulty": "hard"
+    }
+  },
+  {
     "test_id": "coding_001",
     "skill_module": "coding_challenge",
     "question_text": "请实现一个函数，反转字符串中的单词顺序。例如输入 'the sky is blue'，输出 'blue is sky the'。要求处理多余空格。",
@@ -185,6 +785,166 @@
       "tech_stack": [{"name": "Python", "proficiency": "advanced", "years": 4}],
       "years_experience": 4,
       "difficulty": "easy"
+    }
+  },
+  {
+    "test_id": "coding_003",
+    "skill_module": "coding_challenge",
+    "question_text": "实现一个函数判断括号字符串是否有效。包含 ()、{}、[] 三种括号，要求正确匹配和嵌套。例如 '()[]{}' 有效，'([)]' 无效。",
+    "reference_answer": "使用栈：遇到左括号入栈，遇到右括号检查栈顶是否匹配，匹配则弹出否则无效。最后检查栈是否为空。时间复杂度O(n)，空间复杂度O(n)。",
+    "user_answer": "def is_valid(s):\n    stack = []\n    pairs = {')': '(', '}': '{', ']': '['}\n    for ch in s:\n        if ch in '({[':\n            stack.append(ch)\n        elif ch in pairs:\n            if not stack or stack[-1] != pairs[ch]:\n                return False\n            stack.pop()\n    return len(stack) == 0\n\nprint(is_valid('()[]{}'))  # True\nprint(is_valid('([)]'))    # False",
+    "expected_score": 85,
+    "expected_dimensions": {
+      "technical_accuracy": 90,
+      "depth_breadth": 80,
+      "clarity": 88,
+      "practical_experience": 80
+    },
+    "key_points": ["用栈数据结构", "正确匹配三种括号", "处理了边界情况", "有测试"],
+    "context": {
+      "tech_stack": [{"name": "Python", "proficiency": "intermediate", "years": 2}],
+      "years_experience": 2,
+      "difficulty": "easy"
+    }
+  },
+  {
+    "test_id": "coding_004",
+    "skill_module": "coding_challenge",
+    "question_text": "实现一个函数合并两个有序数组 nums1 和 nums2，结果保持有序。要求O(n+m)时间复杂度。",
+    "reference_answer": "用双指针从后往前填充，避免移动元素。i指向nums1有效末尾，j指向nums2末尾，k指向nums1末尾。比较两个指针的值，大的放到k位置。",
+    "user_answer": "def merge_sorted(nums1, m, nums2, n):\n    i, j, k = m - 1, n - 1, m + n - 1\n    while j >= 0:\n        if i >= 0 and nums1[i] > nums2[j]:\n            nums1[k] = nums1[i]\n            i -= 1\n        else:\n            nums1[k] = nums2[j]\n            j -= 1\n        k -= 1\n\nnums1 = [1,2,3,0,0,0]\nmerge_sorted(nums1, 3, [2,5,6], 3)\nprint(nums1)  # [1,2,2,3,5,6]",
+    "expected_score": 83,
+    "expected_dimensions": {
+      "technical_accuracy": 88,
+      "depth_breadth": 78,
+      "clarity": 85,
+      "practical_experience": 78
+    },
+    "key_points": ["双指针从后往前", "O(n+m)时间", "原地修改", "边界处理"],
+    "context": {
+      "tech_stack": [{"name": "Python", "proficiency": "intermediate", "years": 2}],
+      "years_experience": 2,
+      "difficulty": "easy"
+    }
+  },
+  {
+    "test_id": "coding_005",
+    "skill_module": "coding_challenge",
+    "question_text": "实现一个LRU（最近最少使用）缓存，支持 get(key) 和 put(key, value) 操作，O(1)时间复杂度。缓存有容量限制，满时淘汰最久未使用的项。",
+    "reference_answer": "使用双向链表维护访问顺序，最近访问的移到头部，淘汰时删除尾部。哈希表存储 key→节点指针实现O(1)查找。Python可用OrderedDict简化实现。",
+    "user_answer": "class LRUCache:\n    def __init__(self, capacity):\n        self.cap = capacity\n        self.cache = {}  # key -> node\n        self.head = {}\n        self.tail = {}\n        self.head['next'] = self.tail\n        self.tail['prev'] = self.head\n    \n    def _remove(self, node):\n        node['prev']['next'] = node['next']\n        node['next']['prev'] = node['prev']\n    \n    def _add_to_head(self, node):\n        node['next'] = self.head['next']\n        node['prev'] = self.head\n        self.head['next']['prev'] = node\n        self.head['next'] = node\n    \n    def get(self, key):\n        if key not in self.cache:\n            return -1\n        node = self.cache[key]\n        self._remove(node)\n        self._add_to_head(node)\n        return node['val']\n    \n    def put(self, key, val):\n        if key in self.cache:\n            self._remove(self.cache[key])\n        node = {'key': key, 'val': val, 'prev': None, 'next': None}\n        self._add_to_head(node)\n        self.cache[key] = node\n        if len(self.cache) > self.cap:\n            tail = self.tail['prev']\n            self._remove(tail)\n            del self.cache[tail['key']]\n\ncache = LRUCache(2)\ncache.put(1, 1); cache.put(2, 2)\nprint(cache.get(1))  # 1\ncache.put(3, 3)      # 淘汰 key 2\nprint(cache.get(2))  # -1",
+    "expected_score": 88,
+    "expected_dimensions": {
+      "technical_accuracy": 90,
+      "depth_breadth": 85,
+      "clarity": 86,
+      "practical_experience": 82
+    },
+    "key_points": ["双向链表+哈希表", "O(1)读写", "正确处理淘汰逻辑", "完整代码"],
+    "context": {
+      "tech_stack": [{"name": "Python", "proficiency": "advanced", "years": 4}],
+      "years_experience": 4,
+      "difficulty": "medium"
+    }
+  },
+  {
+    "test_id": "coding_006",
+    "skill_module": "coding_challenge",
+    "question_text": "实现一个函数找出字符串中第一个不重复的字符。例如 'leetcode' 返回 'l'，'aabb' 返回空。要求O(n)时间。",
+    "reference_answer": "第一遍遍历用哈希表计数，第二遍遍历找第一个计数为1的字符。时间复杂度O(n)，空间复杂度O(1)（字符集有限）。",
+    "user_answer": "def first_uniq_char(s):\n    count = {}\n    for ch in s:\n        count[ch] = count.get(ch, 0) + 1\n    for ch in s:\n        if count[ch] == 1:\n            return ch\n    return ''\n\nprint(first_uniq_char('leetcode'))  # l\nprint(first_uniq_char('aabb'))      # (空)",
+    "expected_score": 80,
+    "expected_dimensions": {
+      "technical_accuracy": 85,
+      "depth_breadth": 72,
+      "clarity": 90,
+      "practical_experience": 75
+    },
+    "key_points": ["两遍遍历O(n)", "哈希表计数", "边界处理", "有测试"],
+    "context": {
+      "tech_stack": [{"name": "Python", "proficiency": "intermediate", "years": 1}],
+      "years_experience": 1,
+      "difficulty": "easy"
+    }
+  },
+  {
+    "test_id": "coding_007",
+    "skill_module": "coding_challenge",
+    "question_text": "实现二分查找函数，在有序数组中查找目标值，返回索引，不存在返回-1。",
+    "reference_answer": "用左右指针，每次取中间值比较，等于则返回，大于则右指针左移，小于则左指针右移。O(log n)时间，O(1)空间。注意mid计算防止溢出（Python中不存在此问题）。",
+    "user_answer": "def binary_search(nums, target):\n    left, right = 0, len(nums) - 1\n    while left <= right:\n        mid = left + (right - left) // 2\n        if nums[mid] == target:\n            return mid\n        elif nums[mid] < target:\n            left = mid + 1\n        else:\n            right = mid - 1\n    return -1\n\nprint(binary_search([1,3,5,7,9], 5))  # 2\nprint(binary_search([1,3,5,7,9], 4))  # -1",
+    "expected_score": 78,
+    "expected_dimensions": {
+      "technical_accuracy": 85,
+      "depth_breadth": 70,
+      "clarity": 88,
+      "practical_experience": 72
+    },
+    "key_points": ["O(log n)实现", "边界条件正确", "循环不变式正确", "有测试"],
+    "context": {
+      "tech_stack": [{"name": "Java", "proficiency": "intermediate", "years": 1}],
+      "years_experience": 1,
+      "difficulty": "easy"
+    }
+  },
+  {
+    "test_id": "coding_008",
+    "skill_module": "coding_challenge",
+    "question_text": "实现一个函数将嵌套的列表（如 [1, [2, [3, 4], 5], 6]）扁平化为 [1,2,3,4,5,6]。",
+    "reference_answer": "递归处理每个元素，如果是列表则递归展开，否则加入结果。",
+    "user_answer": "def flatten(lst):\n    result = []\n    for item in lst:\n        if isinstance(item, list):\n            result.extend(flatten(item))\n        else:\n            result.append(item)\n    return result\n\nprint(flatten([1, [2, [3, 4], 5], 6]))  # [1,2,3,4,5,6]\nprint(flatten([]))  # []",
+    "expected_score": 78,
+    "expected_dimensions": {
+      "technical_accuracy": 82,
+      "depth_breadth": 72,
+      "clarity": 88,
+      "practical_experience": 72
+    },
+    "key_points": ["递归解法", "空列表处理", "代码简洁", "类型判断"],
+    "context": {
+      "tech_stack": [{"name": "Python", "proficiency": "intermediate", "years": 2}],
+      "years_experience": 2,
+      "difficulty": "easy"
+    }
+  },
+  {
+    "test_id": "coding_009",
+    "skill_module": "coding_challenge",
+    "question_text": "实现一个防抖函数 debounce(fn, delay)，在连续调用时只执行最后一次，延迟delay毫秒后执行。",
+    "reference_answer": "使用定时器，每次调用清除之前的定时器，设置新定时器。这是前端常见模式。",
+    "user_answer": "import time\nimport threading\n\nclass Debounce:\n    def __init__(self, fn, delay_ms):\n        self.fn = fn\n        self.delay = delay_ms / 1000.0\n        self.timer = None\n        self.lock = threading.Lock()\n    \n    def __call__(self, *args, **kwargs):\n        with self.lock:\n            if self.timer:\n                self.timer.cancel()\n            self.timer = threading.Timer(self.delay, self._execute, args, kwargs)\n            self.timer.start()\n    \n    def _execute(self, *args, **kwargs):\n        self.fn(*args, **kwargs)\n\n# 示例用法\ndef search(keyword):\n    print(f'搜索: {keyword}')\n\ndebounced_search = Debounce(search, 300)\ndebounced_search('hel')\ndebounced_search('hello')  # 只有最后一次300ms后执行",
+    "expected_score": 80,
+    "expected_dimensions": {
+      "technical_accuracy": 82,
+      "depth_breadth": 75,
+      "clarity": 84,
+      "practical_experience": 80
+    },
+    "key_points": ["理解防抖概念", "定时器管理", "线程安全", "有示例"],
+    "context": {
+      "tech_stack": [{"name": "JavaScript", "proficiency": "intermediate", "years": 3}],
+      "years_experience": 3,
+      "difficulty": "medium"
+    }
+  },
+  {
+    "test_id": "coding_010",
+    "skill_module": "coding_challenge",
+    "question_text": "实现一个函数将字符串数组按字母异位词分组。例如 ['eat','tea','tan','ate','nat','bat'] 分组为 [['eat','tea','ate'], ['tan','nat'], ['bat']]。",
+    "reference_answer": "对每个字符串排序作为key，用哈希表分组。时间复杂度O(n*k*log k)，其中k是字符串长度。",
+    "user_answer": "from collections import defaultdict\n\ndef group_anagrams(strs):\n    groups = defaultdict(list)\n    for s in strs:\n        key = ''.join(sorted(s))\n        groups[key].append(s)\n    return list(groups.values())\n\nprint(group_anagrams(['eat','tea','tan','ate','nat','bat']))\n# [['eat','tea','ate'], ['tan','nat'], ['bat']]",
+    "expected_score": 82,
+    "expected_dimensions": {
+      "technical_accuracy": 85,
+      "depth_breadth": 78,
+      "clarity": 88,
+      "practical_experience": 75
+    },
+    "key_points": ["排序作key", "哈希表分组", "O(n*k*logk)", "代码简洁"],
+    "context": {
+      "tech_stack": [{"name": "Python", "proficiency": "intermediate", "years": 2}],
+      "years_experience": 2,
+      "difficulty": "medium"
     }
   }
 ]

@@ -11,7 +11,7 @@ class WarmupSkill(BaseSkill):
     display_name = "热身面试"
     priority = 1
     min_questions = 1
-    max_questions = 2
+    max_questions = 1
 
     def __init__(self, llm_factory: LLMFactory):
         self.llm_factory = llm_factory
@@ -37,7 +37,8 @@ class WarmupSkill(BaseSkill):
 要求：
 1. 直接输出问题，不要加"好的""哇""同学"等寒暄或夸赞前缀
 2. 问题控制在150字以内
-3. 用中文，语气温暖但不啰嗦"""
+3. 用中文，语气温暖但不啰嗦
+4. 禁止使用任何 Markdown 语法（**粗体**、## 标题等），纯文字输出"""
 
         result = await llm.ainvoke(prompt)
         text = result.content.strip()

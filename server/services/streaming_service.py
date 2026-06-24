@@ -1,6 +1,11 @@
-"""SSE streaming service for real-time question delivery."""
-import json
-import asyncio
+"""SSE streaming service for real-time question delivery.
+
+Delegates to the orchestrator's ``stream_question()`` generator which handles:
+    - Pre-warmed first question (sub-200ms first-token)
+    - Word-level jieba chunking (natural reading rhythm)
+    - Output guard PII sanitization on every chunk
+"""
+
 from typing import AsyncGenerator
 
 from fastapi.responses import StreamingResponse
@@ -11,38 +16,13 @@ async def sse_generator(
     session,
     db_session,
 ) -> AsyncGenerator[str, None]:
-    """Generate SSE events for streaming question delivery."""
-    import json
+    """Generate SSE events by delegating to the orchestrator's stream_question.
 
-    gen_q, state = await orchestrator.next_question(session, db_session)
-
-    if gen_q is None:
-        yield f"data: {json.dumps({'type': 'interview_complete', 'state': state})}\n\n"
-        return
-
-    # Get the current question from session data
-    session_data = orchestrator.get_session_data(session.id)
-    current_question = session_data.get("current_question") if session_data else None
-    question_id = current_question.id if current_question else ""
-
-    # Send metadata
-    meta = {
-        "type": "question_meta",
-        "question_id": question_id,
-        "question_type": gen_q.question_type,
-        "skill_module": state,
-        "difficulty": session_data["ctx"].difficulty if session_data else "medium",
-    }
-    yield f"data: {json.dumps(meta, ensure_ascii=False)}\n\n"
-
-    # Stream the question text — character by character for typing effect
-    text = gen_q.text
-    for i in range(0, len(text), 2):
-        chunk = text[i:i+2]
-        yield f"data: {json.dumps({'type': 'token', 'content': chunk}, ensure_ascii=False)}\n\n"
-        await asyncio.sleep(0.03)  # ~60 chars/sec typing speed
-
-    yield f"data: {json.dumps({'type': 'question_complete'}, ensure_ascii=False)}\n\n"
+    The orchestrator handles pre-warmup, word-level chunking, guardrails,
+    and Redis persistence internally.
+    """
+    async for sse_event in orchestrator.stream_question(session, db_session):
+        yield sse_event
 
 
 def create_sse_response(orchestrator, session, db_session) -> StreamingResponse:

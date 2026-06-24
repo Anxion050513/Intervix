@@ -1,4 +1,6 @@
 """ChromaDB vector store client management."""
+from __future__ import annotations
+
 import chromadb
 from chromadb.config import Settings as ChromaSettings
 

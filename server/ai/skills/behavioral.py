@@ -47,7 +47,8 @@ class BehavioralSkill(BaseSkill):
 要求：
 1. 直接输出问题，不要加"好的""哇"等感叹词或寒暄前缀
 2. 问题控制在200字以内，简洁有力
-3. 用中文提问，语气专业但友好"""
+3. 用中文提问，语气专业但友好
+4. 禁止使用任何 Markdown 语法（**粗体**、## 标题等），纯文字输出"""
 
         result = await llm.ainvoke(prompt)
         text = result.content.strip()

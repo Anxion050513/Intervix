@@ -21,14 +21,15 @@ async def health_check(db: AsyncSession = Depends(get_db)):
         response.status = "degraded"
         response.mysql = f"error: {e}"
 
-    # Check Redis (non-blocking)
+    # Check Redis (via SessionCache singleton — reuses the shared connection)
     try:
-        import redis.asyncio as aioredis
-        from server.config import settings
-        r = aioredis.from_url(settings.redis_url)
-        await r.ping()
-        await r.close()
-        response.redis = "ok"
+        from server.services.session_cache import SessionCache
+        cache = await SessionCache.create()
+        if await cache.ping():
+            response.redis = "ok"
+        else:
+            response.status = "degraded"
+            response.redis = "error: ping returned False (fallback in-memory mode)"
     except Exception as e:
         response.status = "degraded"
         response.redis = f"error: {e}"

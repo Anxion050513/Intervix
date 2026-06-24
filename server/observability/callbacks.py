@@ -11,6 +11,7 @@ import logging
 from uuid import UUID
 
 from langchain_core.callbacks import BaseCallbackHandler
+from langfuse.types import TraceContext as LfTraceContext
 
 logger = logging.getLogger(__name__)
 
@@ -91,7 +92,7 @@ class LangFuseTracer(BaseCallbackHandler):
     """
 
     def __init__(self):
-        self._pending: dict[UUID, object] = {}  # run_id → StatefulGenerationClient
+        self._pending: dict[UUID, object] = {}  # run_id → LangfuseGeneration
 
     @property
     def client(self):
@@ -108,7 +109,10 @@ class LangFuseTracer(BaseCallbackHandler):
     # === LangChain callback interface ===
 
     def _create_generation(self, run_id: UUID, model_name: str, input_data):
-        """Create a langfuse generation for the current trace context."""
+        """Create a langfuse generation for the current trace context.
+
+        Uses LangFuse v2.x API: ``start_observation(as_type="generation")``.
+        """
         cl = self.client
         if cl is None:
             return
@@ -124,10 +128,15 @@ class LangFuseTracer(BaseCallbackHandler):
             name_parts.append(skill)
         name = "-".join(name_parts)
 
+        # LangFuse requires trace_id in 32 lowercase hex chars (UUID without dashes)
+        clean_trace_id = session_id.replace("-", "") if session_id else ""
+        trace_ctx = LfTraceContext(trace_id=clean_trace_id) if clean_trace_id else None
+
         try:
-            gen = cl.generation(
-                trace_id=session_id if session_id else None,
+            gen = cl.start_observation(
+                trace_context=trace_ctx,
                 name=name,
+                as_type="generation",
                 model=model_name,
                 input=input_data,
                 metadata={
@@ -136,11 +145,14 @@ class LangFuseTracer(BaseCallbackHandler):
                     "question_id": ctx.get("question_id", ""),
                     "phase": phase,
                 },
-                tags=[t for t in [phase, skill] if t],
             )
             self._pending[run_id] = gen
+            logger.info(
+                "LangFuse gen created: name=%s model=%s session=%s",
+                name, model_name, session_id[:8] if session_id else "-",
+            )
         except Exception as e:
-            logger.debug("LangFuse create_generation failed: %s", e)
+            logger.warning("LangFuse start_observation failed: %s", e, exc_info=True)
 
     def _end_generation(self, run_id: UUID, output: str, tok: dict | None = None, error: str | None = None):
         """Update and end a pending generation, then flush to langfuse."""
@@ -156,17 +168,20 @@ class LangFuseTracer(BaseCallbackHandler):
                     usage["total"] = tok["total_tokens"]
 
             if error:
-                gen.update(status_message=error[:500], level="ERROR")
+                gen.update(output=output or "", status_message=error[:500], level="ERROR")
             else:
-                gen.update(output=output, usage_details=usage if usage else None)
+                gen.update(output=output or "", usage_details=usage if usage else None)
             gen.end()
 
-            # Flush immediately so data appears in dashboard without delay
+            # Flush immediately — v2.x flush is synchronous
             cl = self.client
             if cl:
-                cl.flush()
+                try:
+                    cl.flush()
+                except Exception as flush_err:
+                    logger.warning("LangFuse flush FAILED: %s", flush_err)
         except Exception as e:
-            logger.debug("LangFuse end_generation failed: %s", e)
+            logger.warning("LangFuse end_generation failed: %s", e, exc_info=True)
 
     # ---- Chat model callbacks (langchain 1.x uses these for ChatOpenAI) ----
 

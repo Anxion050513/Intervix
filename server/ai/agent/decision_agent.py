@@ -42,39 +42,17 @@ class AgentDecision:
     follow_up_context: str | None = None  # What specifically to follow up on
 
 
-AGENT_SYSTEM_PROMPT = """你是一个资深技术面试官 Agent，负责动态决策面试流程。
+AGENT_SYSTEM_PROMPT = """你是面试决策Agent。warmup固定1题不计分。根据表现决定: continue / follow_up(追问) / switch_skill(切模块) / skip_skill(跳过) / adjust(调难度) / conclude(结束)。
 
-## 你的职责
-观察候选人当前面试状态（已回答的问题、得分、当前技能模块），决定下一步最优动作。
+规则:
+- warmup后直接switch_skill到technical_qa
+- technical_qa占总量的百分之60左右，其余(behavioral/system_design/coding)分剩余题数
+- 非技术板块(behavioral/system_design/coding)各最多3题，一般不追问
+- 技术板块得分<50→follow_up(连追最多1次)
+- 连续2题>85→skip或提难度，难度渐进调整
+- 优先未问模块，剩余题不足时跳过未问的低优先级模块
 
-## 可选动作
-- **continue**: 当前技能模块下继续出下一道题（候选人表现正常）
-- **follow_up**: 追问上一道题的相关知识点（候选人回答有漏洞、不完整或得分 < 60）
-- **switch_skill**: 切换到下一个技能模块（当前模块问题数已达上限，或候选人表现优异无需更多题）
-- **skip_skill**: 跳过某个技能模块（候选人简历/回答中已展示该领域深度掌握）
-- **adjust**: 仅调整难度，保持当前技能模块
-- **conclude**: 提前结束面试（候选人明显超出或低于岗位要求，无需继续所有轮次）
-
-## 决策原则
-1. 如果上一题得分 < 50，应该 follow_up 深入追问，确认是知识盲区还是紧张
-2. 如果连续 3 题得分 > 85，可以 skip_skill 或提升难度
-3. 同一技能模块内，follow_up 最多连续 1 次，之后必须 continue 或 switch_skill
-4. 难度调整要渐进：medium→hard 或 medium→easy，不要跨级跳
-5. 剩余可用题数不足时，优先 cover 尚未提问的技能模块
-6. 如果候选人工作经验 > 8 年，warmup 只需要 1 题即可 switch_skill
-
-## 输出格式
-严格输出 JSON，不要带 markdown 标记：
-
-{
-  "action": "continue",
-  "reason": "候选人上一题回答正确率 75%，属于正常水平，继续当前模块出题",
-  "next_skill": null,
-  "new_difficulty": null,
-  "focus_topics": [],
-  "follow_up_context": null
-}
-"""
+输出JSON: {"action":"continue","reason":"...","next_skill":null,"new_difficulty":null,"focus_topics":[],"follow_up_context":null}"""
 
 
 AGENT_OBSERVATION_TEMPLATE = """## 当前面试状态
@@ -109,22 +87,16 @@ class InterviewAgent:
 
     @staticmethod
     def _format_tech_stack(tech_stack: list) -> str:
-        """Format tech_stack (list of dicts or strings) into a readable string."""
+        """Format tech_stack — top 5 only to keep prompt lean."""
         if not tech_stack:
             return "未知"
-        result_parts = []
-        for item in tech_stack:
+        names = []
+        for item in tech_stack[:5]:
             if isinstance(item, dict):
-                name = item.get("name", str(item))
-                proficiency = item.get("proficiency", "")
-                years = item.get("years", "")
-                if proficiency or years:
-                    result_parts.append(f"{name}({proficiency}/{years}年)")
-                else:
-                    result_parts.append(name)
+                names.append(item.get("name", str(item)))
             else:
-                result_parts.append(str(item))
-        return ", ".join(result_parts)
+                names.append(str(item))
+        return ", ".join(names)
 
     def _build_observation(
         self,
@@ -138,48 +110,61 @@ class InterviewAgent:
         module_count: int,
         recent_history: list[dict],
         module_scores: dict[str, float],
+        warmup_count: int = 0,
+        warmup_max: int = 1,
+        module_counts: dict | None = None,
     ) -> str:
-        """Build the observation text for the agent."""
+        """Build the observation — scores + history first (most important), tech last."""
 
-        # Format recent history
-        history_lines = []
-        for i, h in enumerate(recent_history[-5:]):
-            score_str = str(h.get('score', 'N/A')) if h.get('score') is not None else "未评分"
-            q = h.get('question', '')
-            history_lines.append(
-                f"  [{i+1}] 模块: {h.get('skill', 'N/A')} | "
-                f"问题: {q[:3000]}{'...' if len(q) > 3000 else ''} | "
-                f"得分: {score_str}"
-            )
-        history_text = "\n".join(history_lines) if history_lines else "  (尚无回答记录)"
+        counts = module_counts or {}
 
-        # Format module scores
+        # 1. Module progress: use module_counts to know which were visited
+        progress_parts = []
+        if warmup_count > 0:
+            w_status = "V" if warmup_count >= warmup_max else f"{warmup_count}/{warmup_max}"
+            progress_parts.append(f"warmup:{w_status}")
+        for m in skill_modules:
+            cnt = counts.get(m, 0)
+            if cnt > 0:
+                marker = f"V{cnt}"  # V2 = done, 2 questions asked
+            else:
+                marker = "O"
+            progress_parts.append(f"{marker}{m}")
+        progress_str = " ".join(progress_parts)
+
+        # 2. Scores per module (most critical decision input)
         score_lines = []
-        for mod, avg_score in module_scores.items():
-            score_lines.append(f"  {mod}: 平均 {avg_score:.1f} 分")
-        scores_text = "\n".join(score_lines) if score_lines else "  (尚无评分数据)"
+        for mod, avg_score in sorted(module_scores.items(), key=lambda x: x[1], reverse=True):
+            score_lines.append(f"{mod}={avg_score:.0f}")
+        scores_str = " ".join(score_lines) if score_lines else "无"
 
-        # Build observation, escaping { } in user-generated text to prevent
-        # str.format() from crashing on code snippets / JSON in answers.
-        safe = lambda s: s.replace('{', '{{').replace('}', '}}') if isinstance(s, str) else s
-        observation = AGENT_OBSERVATION_TEMPLATE.format(
-            tech_stack=safe(self._format_tech_stack(tech_stack)),
-            years_experience=safe(years_experience or "未知"),
-            difficulty=safe(difficulty),
-            current_skill=safe(current_skill),
-            skill_modules=safe(" → ".join(skill_modules)),
-            total_asked=total_asked,
-            max_questions=max_questions,
-            module_count=module_count,
-            recent_history=safe(history_text),
-            module_scores=safe(scores_text),
+        # 3. Recent Q&A — question + answer both abbreviated
+        history_lines = []
+        for i, h in enumerate(recent_history[-3:]):
+            s = h.get('score')
+            score_str = str(s) if s is not None else "?"
+            q = h.get('question', '')
+            q_short = (q[:80] + '...') if len(q) > 80 else q
+            a = h.get('answer', '')
+            a_short = (a[:100] + '...') if len(a) > 100 else a
+            history_lines.append(f"[{i+1}]{h.get('skill','?')} Q:{q_short} A:{a_short} 得分{score_str}")
+        history_str = " | ".join(history_lines) if history_lines else "无"
+
+        # 4. Tech stack — top 5 only
+        tech_str = self._format_tech_stack(tech_stack)
+
+        observation = (
+            f"进度:{progress_str} | 当前:{current_skill} | 难度:{difficulty} | {total_asked}/{max_questions}题\n"
+            f"均分:{scores_str}\n"
+            f"回答:{history_str}\n"
+            f"技术栈:{tech_str} | 年限:{years_experience or '?'}\n"
+            "决定动作,输出JSON。"
         )
+
         import logging
         _log = logging.getLogger(__name__)
-        _log.warning(
-            "AGENT_OBSERVATION len=%d\n---OBSERVATION---\n%s\n---END---",
-            len(observation), observation
-        )
+        _log.warning("AGENT_OBSERVATION len=%d", len(observation))
+        _log.warning("AGENT_OBSERVATION full:\n%s", observation)
         return observation
 
     async def decide(
@@ -195,6 +180,9 @@ class InterviewAgent:
         module_count: int,
         recent_history: list[dict],
         module_scores: dict[str, float],
+        warmup_count: int = 0,
+        warmup_max: int = 1,
+        module_counts: dict | None = None,
     ) -> AgentDecision:
         """Ask the LLM to decide the next interview action.
 
@@ -213,6 +201,8 @@ class InterviewAgent:
             tech_stack, years_experience, difficulty,
             current_skill, skill_modules, total_asked,
             max_questions, module_count, recent_history, module_scores,
+            warmup_count=warmup_count, warmup_max=warmup_max,
+            module_counts=module_counts,
         )
 
         try:

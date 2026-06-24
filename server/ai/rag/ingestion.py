@@ -1,10 +1,17 @@
-"""Data ingestion into ChromaDB collections."""
+"""Data ingestion into ChromaDB collections.
+
+After every ingestion the corresponding BM25 index is automatically rebuilt
+so hybrid retrievers always see fresh data.
+"""
+import logging
 import uuid
 
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 from server.ai.rag.vector_store import get_or_create_collection
 from server.ai.rag.embedder import get_embedder
+
+logger = logging.getLogger(__name__)
 
 
 def ingest_documents(
@@ -42,6 +49,9 @@ def ingest_documents(
         embeddings=embeddings,
     )
 
+    # Rebuild BM25 for this collection so hybrid retrievers see new data
+    _rebuild_bm25_for(collection_name)
+
     return len(texts)
 
 
@@ -75,7 +85,12 @@ def ingest_resume_chunks(
     ]
     ids = [f"{resume_id}_chunk_{i}" for i in range(len(chunks))]
 
-    return ingest_documents("resume_chunks", chunks, metadatas, ids)
+    count = ingest_documents("resume_chunks", chunks, metadatas, ids)
+
+    # Rebuild BM25 so hybrid retrievers pick up the new data
+    _rebuild_bm25_for("resume_chunks")
+
+    return count
 
 
 def ingest_questions(
@@ -126,4 +141,19 @@ def ingest_questions(
         })
         ids.append(str(uuid.uuid4()))
 
-    return ingest_documents("question_bank", texts, metadatas, ids)
+    count = ingest_documents("question_bank", texts, metadatas, ids)
+    # BM25 is already rebuilt inside ingest_documents()
+    return count
+
+
+def _rebuild_bm25_for(collection_name: str):
+    """Rebuild the BM25 index for *collection_name* if it is already cached."""
+    try:
+        from server.ai.rag.retriever import _retrievers
+
+        retriever = _retrievers.get(collection_name)
+        if retriever is not None:
+            retriever.rebuild_bm25()
+            logger.info("BM25 rebuilt for '%s' after ingestion", collection_name)
+    except Exception:
+        logger.debug("BM25 rebuild skipped for '%s' (retriever not yet initialized)", collection_name)

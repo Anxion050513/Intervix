@@ -53,7 +53,8 @@ class TechnicalQASkill(BaseSkill):
 1. 问题基于候选人的技术栈（优先问尚未问过的技术）
 2. 问题要有深度，不能是简单的"什么是XXX"
 3. 如果是 medium/hard，应该让候选人需要结合实际经验回答
-4. 只输出问题本身，用中文，控制在150字以内"""
+4. 只输出问题本身，用中文，控制在150字以内
+5. 禁止使用任何 Markdown 语法（**粗体**、## 标题、- 列表、``` 代码块等），纯文字输出"""
 
         q_result = await llm.ainvoke(q_prompt)
         question_text = q_result.content.strip()
@@ -159,30 +160,22 @@ class TechnicalQASkill(BaseSkill):
             }
 
     def _format_history(self, history: list) -> str:
-        import logging
-        _log = logging.getLogger(__name__)
-        _log.warning("FORMAT_HISTORY_DEBUG items=%d keys_per_item=%s",
-                     len(history),
-                     [list(h.keys()) if isinstance(h, dict) else type(h).__name__ for h in history])
         if not history:
             return "（无）"
         lines = []
         for i, item in enumerate(history, 1):
             if item.get("type") == "follow_up_hint":
-                lines.append(
-                    f"{i}. [追问要求] {item.get('context', '')}"
-                )
+                lines.append(f"{i}. [追问] {item.get('context', '')}")
             else:
                 q = item.get('question', '')
                 a = item.get('answer', '')
-                _log.warning("FORMAT_HISTORY_DEBUG item=%d q_len=%d a_len=%d a_preview=%s",
-                             i, len(q), len(a), a[:80])
+                s = item.get('score')
+                score_str = f"得分{s}" if s is not None else ""
                 if not a:
-                    a = "(答案未记录，可能被安全护栏拦截)"
-                    _log.warning("FORMAT_HISTORY_DEBUG item %d has empty answer, question[:60]=%s", i, q[:60])
+                    a = "(未记录)"
                 lines.append(
-                    f"{i}. Q: {q[:1000]}{'...' if len(q) > 1000 else ''}\n"
-                    f"   A: {a[:2500]}{'...' if len(a) > 2500 else ''}"
+                    f"{i}. [{item.get('skill','?')}] Q: {q}\n"
+                    f"   A: {a} {score_str}"
                 )
         return "\n".join(lines)
 

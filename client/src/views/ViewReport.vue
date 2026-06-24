@@ -2,7 +2,7 @@
   <div class="report-page">
     <el-row :gutter="24">
       <!-- History Sidebar -->
-      <el-col :span="6">
+      <el-col :span="5">
         <el-card class="history-card">
           <template #header>
             <span>📋 历史面试</span>
@@ -15,8 +15,8 @@
               @click="loadReport(item.session_id)"
             >
               <div class="history-date">{{ formatDate(item.started_at) }}</div>
-              <el-tag :type="item.status === 'completed' ? 'success' : 'info'" size="small">
-                {{ item.status === 'completed' ? '已完成' : '进行中' }}
+              <el-tag :type="activeSessionId === item.session_id && item.status !== 'completed' ? 'info' : 'success'" size="small">
+                {{ activeSessionId === item.session_id && item.status !== 'completed' ? '进行中' : '已完成' }}
               </el-tag>
               <span class="history-count">{{ item.question_count }} 题</span>
             </div>
@@ -26,7 +26,7 @@
       </el-col>
 
       <!-- Main Report -->
-      <el-col :span="18">
+      <el-col :span="19">
         <el-card class="report-card">
           <template #header>
             <div class="card-header">
@@ -122,19 +122,19 @@
                 >
                   <template #title>
                     <div class="question-title">
-                      <el-tag :type="qTypeTag(q.question_type)" size="small">
+                      <el-tag :type="qTypeTag(q.question_type)" size="small" class="q-type-tag">
                         {{ qTypeLabel(q.question_type) }}
                       </el-tag>
-                      <span class="q-text">{{ q.question_text.substring(0, 80) }}...</span>
-                      <el-tag v-if="q.score !== null" type="warning" size="small">
+                      <span class="q-text">{{ q.question_text }}</span>
+                      <el-tag v-if="q.score !== null" type="warning" size="small" class="q-score-tag">
                         {{ q.score }} 分
                       </el-tag>
-                      <el-tag v-else type="info" size="small">不计分</el-tag>
+                      <el-tag v-else type="info" size="small" class="q-score-tag">不计分</el-tag>
                     </div>
                   </template>
                   <div class="question-detail">
-                    <p><strong>问题：</strong>{{ q.question_text }}</p>
-                    <p><strong>你的回答：</strong>{{ q.user_answer || '(未回答)' }}</p>
+                    <p v-if="q.user_answer"><strong>你的回答：</strong>{{ q.user_answer }}</p>
+                    <p v-else class="no-answer">(未回答)</p>
                     <p v-if="q.feedback"><strong>反馈：</strong>{{ q.feedback }}</p>
                     <div v-if="q.score_breakdown" class="breakdown-detail">
                       <strong>详细评分：</strong>
@@ -324,8 +324,9 @@ function dimLabel(d: string): string {
 
 <style scoped>
 .report-page {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
+  padding: 0 16px;
 }
 
 .history-card {
@@ -471,21 +472,41 @@ function dimLabel(d: string): string {
 
 .question-title {
   display: flex;
-  align-items: center;
-  gap: 12px;
+  align-items: flex-start;
+  gap: 10px;
   width: 100%;
+  padding: 4px 0;
+}
+
+.q-type-tag {
+  flex-shrink: 0;
+  margin-top: 2px;
 }
 
 .q-text {
   flex: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  line-height: 1.6;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
+.q-score-tag {
+  flex-shrink: 0;
+  margin-top: 2px;
+  margin-left: auto;
 }
 
 .question-detail {
   padding: 8px 16px;
   line-height: 1.8;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.no-answer {
+  color: #909399;
+  font-style: italic;
 }
 
 .breakdown-detail {

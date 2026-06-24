@@ -58,9 +58,13 @@ class LangFuseClientManager:
                 public_key=public_key,
                 secret_key=secret_key,
                 host=settings.langfuse_host,
+                # Low-latency flush: send every event immediately instead of
+                # batching every 30s (the SDK default) which causes ~10min delays.
+                flush_interval=1,   # flush bg thread every 1s
+                flush_at=1,         # flush after every single event
             )
             self._enabled = True
-            logger.info("LangFuse observability enabled (host: %s)", settings.langfuse_host)
+            logger.info("LangFuse observability enabled (host: %s, flush_interval=1s)", settings.langfuse_host)
         except Exception as e:
             logger.warning("Failed to initialize LangFuse client: %s", e)
             self._enabled = False

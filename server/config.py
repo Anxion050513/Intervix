@@ -1,5 +1,18 @@
 """Application configuration via Pydantic Settings."""
 import os
+import sys
+
+# Force UTF-8 encoding on Windows so Chinese text renders correctly
+# in logs, console output, and API responses. Must happen at import time
+# before any I/O is performed.
+if sys.platform == "win32":
+    for stream in (sys.stdout, sys.stderr):
+        try:
+            if not stream.closed:
+                stream.reconfigure(encoding="utf-8", errors="replace")
+        except Exception:
+            pass
+
 from pydantic_settings import BaseSettings
 
 
